@@ -1,0 +1,908 @@
+---
+// CanvasHeroSection.astro
+interface Props {
+    title?: string;
+    subtitle?: string;
+    speed?: number;
+    amplitude?: number;
+    frequency?: number;
+}
+
+const { speed = 0.4, amplitude = 0.15, frequency = 2.0 } = Astro.props;
+---
+
+<div class="wave-container">
+    <div class="canvas-frame">
+        <div class="canvas-header">
+            <div class="lights">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
+            </div>
+            <span id="wave-fps">— fps</span>
+        </div>
+
+        <canvas id="wave-canvas"></canvas>
+
+        <div class="wave-overlay"></div>
+
+        <div class="wave-controls">
+            <label class="control">
+                <input type="checkbox" id="wave-toggle" checked />
+                <span>Animate</span>
+            </label>
+
+            <div class="slider-group">
+                <label class="slider-label">Speed</label>
+                <input
+                    type="range"
+                    id="speed-slider"
+                    min="0.1"
+                    max="1"
+                    step="0.1"
+                    value={speed}
+                    class="slider"
+                />
+                <span class="slider-value" id="speed-value">{speed}x</span>
+            </div>
+
+            <div class="slider-group">
+                <label class="slider-label">Amplitude</label>
+                <input
+                    type="range"
+                    id="amplitude-slider"
+                    min="0.1"
+                    max="0.5"
+                    step="0.05"
+                    value={amplitude}
+                    class="slider"
+                />
+                <span class="slider-value" id="amplitude-value"
+                    >{(amplitude * 100).toFixed(0)}%</span
+                >
+            </div>
+
+            <div class="slider-group">
+                <label class="slider-label">Frequency</label>
+                <input
+                    type="range"
+                    id="frequency-slider"
+                    min="1"
+                    max="5"
+                    step="0.5"
+                    value={frequency}
+                    class="slider"
+                />
+                <span class="slider-value" id="frequency-value"
+                    >{frequency}</span
+                >
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="cta-section">
+    <a href="/ui" class="cta-button primary">Explore Components</a>
+</div>
+
+<style>
+    .wave-container {
+        width: min(90vw, 1200px);
+        height: min(60vh, 500px);
+        position: relative;
+        margin-bottom: 2rem;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow:
+            0 20px 60px rgba(0, 0, 0, 0.8),
+            0 0 100px rgba(255, 255, 255, 0.05),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .canvas-frame {
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        background: radial-gradient(
+            ellipse at center,
+            #050505 0%,
+            #000000 50%,
+            #000000 100%
+        );
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+        backdrop-filter: blur(2px);
+    }
+
+    #wave-canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+        border-radius: 20px;
+    }
+
+    .canvas-header {
+        position: absolute;
+        top: 12px;
+        left: 16px;
+        right: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #444444;
+        font-size: 12px;
+        z-index: 10;
+        pointer-events: none;
+    }
+
+    .lights {
+        display: inline-flex;
+        gap: 8px;
+    }
+
+    .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 999px;
+        opacity: 0.8;
+        box-shadow: 0 0 6px currentColor;
+    }
+
+    .dot.red {
+        background: #ff4444;
+        color: #ff4444;
+    }
+    .dot.yellow {
+        background: #ffaa00;
+        color: #ffaa00;
+    }
+    .dot.green {
+        background: #00ff44;
+        color: #00ff44;
+    }
+
+    .wave-controls {
+        position: absolute;
+        bottom: 16px;
+        left: 16px;
+        right: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        color: #666666;
+        font-size: 11px;
+        z-index: 10;
+        flex-wrap: wrap;
+    }
+
+    .control {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .control input[type="checkbox"] {
+        appearance: none;
+        width: 36px;
+        height: 20px;
+        background: rgba(26, 26, 26, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 999px;
+        position: relative;
+        outline: none;
+        transition: all 0.3s ease;
+    }
+
+    .control input[type="checkbox"]::after {
+        content: "";
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        background: #ffffff;
+        border-radius: 999px;
+        top: 1px;
+        left: 1px;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(255, 255, 255, 0.4);
+    }
+
+    .control input[type="checkbox"]:checked {
+        background: rgba(255, 255, 255, 0.9);
+        border-color: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+    }
+
+    .control input[type="checkbox"]:checked::after {
+        transform: translateX(16px);
+        background: #000000;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    .slider-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(0, 0, 0, 0.4);
+        padding: 6px 12px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+    }
+
+    .slider-label {
+        font-size: 10px;
+        color: #888888;
+        min-width: 50px;
+        white-space: nowrap;
+        font-weight: 500;
+    }
+
+    .slider {
+        width: 60px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 2px;
+        outline: none;
+        appearance: none;
+    }
+
+    .slider::-webkit-slider-thumb {
+        appearance: none;
+        width: 14px;
+        height: 14px;
+        background: #ffffff;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(255, 255, 255, 0.5);
+    }
+
+    .slider::-moz-range-thumb {
+        width: 14px;
+        height: 14px;
+        background: #ffffff;
+        border-radius: 50%;
+        cursor: pointer;
+        border: none;
+        box-shadow: 0 2px 8px rgba(255, 255, 255, 0.5);
+    }
+
+    .slider-value {
+        font-weight: bold;
+        color: #ffffff;
+        min-width: 40px;
+        text-align: right;
+        font-size: 10px;
+        font-family: "JetBrains Mono", monospace;
+    }
+
+    .wave-overlay {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+            radial-gradient(
+                circle at center,
+                rgba(255, 255, 255, 0.06) 0%,
+                transparent 40%
+            ),
+            radial-gradient(
+                ellipse at center,
+                rgba(255, 255, 255, 0.03) 0%,
+                transparent 70%
+            );
+        animation: centerGlow 8s ease-in-out infinite;
+    }
+
+    .cta-section {
+        margin-top: 2rem;
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .cta-button {
+        padding: 12px 24px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 12px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+    }
+
+    .cta-button:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.4);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+    }
+
+    .cta-button.primary {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    @keyframes titleGlow {
+        0%,
+        100% {
+            text-shadow:
+                0 0 20px rgba(255, 255, 255, 0.5),
+                0 0 40px rgba(255, 255, 255, 0.3),
+                0 0 60px rgba(255, 255, 255, 0.1);
+        }
+        50% {
+            text-shadow:
+                0 0 30px rgba(255, 255, 255, 0.8),
+                0 0 60px rgba(255, 255, 255, 0.5),
+                0 0 90px rgba(255, 255, 255, 0.2);
+        }
+    }
+
+    @keyframes centerGlow {
+        0%,
+        100% {
+            opacity: 0.1;
+            transform: scale(1);
+        }
+        50% {
+            opacity: 0.25;
+            transform: scale(1.02);
+        }
+    }
+
+    .wave-overlay {
+        /*background: red;*/
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .wave-overlay,
+        .hero-title {
+            animation: none;
+        }
+    }
+
+    #wave-fps {
+        background: rgba(0, 0, 0, 0.7);
+        padding: 4px 8px;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: #aaaaaa;
+    }
+
+    @media (max-width: 768px) {
+        .hero-container {
+            padding: 1rem;
+        }
+
+        .wave-container {
+            width: 95vw;
+            height: 50vh;
+        }
+
+        .wave-controls {
+            flex-direction: column;
+            gap: 12px;
+            bottom: 12px;
+        }
+
+        .slider-group {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .cta-section {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .cta-button {
+            width: 200px;
+            text-align: center;
+        }
+    }
+
+    .loading {
+        opacity: 0;
+        animation: fadeIn 1s ease-out 0.5s forwards;
+    }
+
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+
+<script>
+    // canvas-wave-animation.js
+
+    class CanvasWaveAnimation {
+        constructor(canvasId, options = {}) {
+            this.canvas = document.getElementById(canvasId);
+            if (!this.canvas) {
+                console.error(`Canvas with id "${canvasId}" not found`);
+                return;
+            }
+
+            this.ctx = this.canvas.getContext("2d");
+            this.running = true;
+            this.animationSpeed = options.speed || 0.3;
+            this.waveAmplitude = options.amplitude || 0.4;
+            this.waveFrequency = options.frequency || 2.0;
+            this.canvasSize = { width: 800, height: 400 };
+            this.lastTime = 0;
+            this.startTime = performance.now();
+            this.fpsElement = null;
+            this.toggleElement = null;
+
+            // Audio parameters
+            this.audioContext = null;
+            this.masterGain = null;
+            this.waveOscillator = null;
+            this.waveGain = null;
+            this.rippleOscillators = [];
+            this.rippleGains = [];
+            this.centerFrequency = 80; // Hz
+            this.frequencyRange = 400; // Range of frequency modulation
+
+            this.init();
+        }
+
+        init() {
+            this.setupCanvas();
+            this.setupControls();
+            this.setupAudio();
+            this.handleResize();
+        }
+
+        setupCanvas() {
+            const rect = this.canvas.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+
+            this.canvas.width = rect.width * dpr;
+            this.canvas.height = rect.height * dpr;
+
+            this.ctx.scale(dpr, dpr);
+            this.canvas.style.width = rect.width + "px";
+            this.canvas.style.height = rect.height + "px";
+
+            this.canvasSize = { width: rect.width, height: rect.height };
+        }
+
+        setupControls() {
+            // Setup FPS counter
+            this.fpsElement = document.getElementById("wave-fps");
+
+            // Setup toggle
+            this.toggleElement = document.getElementById("wave-toggle");
+            if (this.toggleElement) {
+                this.toggleElement.addEventListener("change", () => {
+                    if (this.toggleElement.checked) {
+                        this.start();
+                    } else {
+                        this.stop();
+                    }
+                });
+            }
+
+            // Setup speed slider
+            const speedSlider = document.getElementById("speed-slider");
+            const speedValue = document.getElementById("speed-value");
+            if (speedSlider && speedValue) {
+                speedSlider.addEventListener("input", () => {
+                    this.animationSpeed = parseFloat(speedSlider.value);
+                    speedValue.textContent =
+                        this.animationSpeed.toFixed(1) + "x";
+                });
+            }
+
+            // Setup amplitude slider
+            const amplitudeSlider = document.getElementById("amplitude-slider");
+            const amplitudeValue = document.getElementById("amplitude-value");
+            if (amplitudeSlider && amplitudeValue) {
+                amplitudeSlider.addEventListener("input", () => {
+                    this.waveAmplitude = parseFloat(amplitudeSlider.value);
+                    amplitudeValue.textContent =
+                        (this.waveAmplitude * 100).toFixed(0) + "%";
+                });
+            }
+
+            // Setup frequency slider
+            const frequencySlider = document.getElementById("frequency-slider");
+            const frequencyValue = document.getElementById("frequency-value");
+            if (frequencySlider && frequencyValue) {
+                frequencySlider.addEventListener("input", () => {
+                    this.waveFrequency = parseFloat(frequencySlider.value);
+                    frequencyValue.textContent = this.waveFrequency.toString();
+                });
+            }
+        }
+
+        setupAudio() {
+            // Create audio context on user interaction
+            const enableAudio = () => {
+                if (!this.audioInitialized) {
+                    this.initAudio();
+                }
+            };
+
+            // Enable audio on first click/touch
+            document.addEventListener("click", enableAudio, { once: true });
+            document.addEventListener("touchstart", enableAudio, {
+                once: true,
+            });
+        }
+
+        // initAudio() {
+        //     try {
+        //         this.audioContext = new (
+        //             window.AudioContext || window.webkitAudioContext
+        //         )();
+
+        //         // Create master gain node
+        //         this.masterGain = this.audioContext.createGain();
+        //         this.masterGain.connect(this.audioContext.destination);
+        //         this.masterGain.gain.setValueAtTime(
+        //             0.3,
+        //             this.audioContext.curfentTime,
+        //         );
+
+        //         // Create main wave oscillator
+        //         this.waveOscillator = this.audioContext.createOscillator();
+        //         this.waveOscillator.type = "sine";
+        //         this.waveOscillator.frequency.setValueAtTime(
+        //             this.centerFrequency,
+        //             this.audioContext.currentTime,
+        //         );
+
+        //         this.waveGain = this.audioContext.createGain();
+        //         this.waveGain.gain.setValueAtTime(
+        //             0,
+        //             this.audioContext.currentTime,
+        //         );
+
+        //         this.waveOscillator.connect(this.waveGain);
+        //         this.waveGain.connect(this.masterGain);
+        //         this.waveOscillator.start();
+
+        //         // Create ripple oscillators for spatial effect
+        //         for (let i = 0; i < 3; i++) {
+        //             const rippleOsc = this.audioContext.createOscillator();
+        //             rippleOsc.type =
+        //                 i === 0 ? "sine" : i === 1 ? "triangle" : "sawtooth";
+        //             rippleOsc.frequency.setValueAtTime(
+        //                 this.centerFrequency * (1 + i * 0.5),
+        //                 this.audioContext.currentTime,
+        //             );
+
+        //             const rippleGain = this.audioContext.createGain();
+        //             rippleGain.gain.setValueAtTime(
+        //                 0,
+        //                 this.audioContext.currentTime,
+        //             );
+
+        //             rippleOsc.connect(rippleGain);
+        //             rippleGain.connect(this.masterGain);
+        //             rippleOsc.start();
+
+        //             this.rippleOscillators.push(rippleOsc);
+        //             this.rippleGains.push(rippleGain);
+        //         }
+
+        //         this.audioInitialized = true;
+        //     } catch (error) {
+        //         console.error("Failed to initialize audio:", error);
+        //     }
+        // }
+
+        handleResize() {
+            window.addEventListener("resize", () => {
+                this.setupCanvas();
+            });
+        }
+
+        getWaveIntensity(x, y, time) {
+            const centerX = this.canvasSize.width / 2;
+            const centerY = this.canvasSize.height / 2;
+
+            const distance = Math.sqrt(
+                Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2),
+            );
+
+            // Calculate elapsed time since start
+            const elapsedTime =
+                (time - this.startTime) * 0.01 * this.animationSpeed;
+
+            // Wave propagation - starts from center and expands outward
+            const propagationSpeed = 0.3;
+            const currentWaveFront = elapsedTime * propagationSpeed * 100; // Scale up for visible effect
+
+            // Calculate the wave pattern based on distance and time
+            const wavePattern =
+                Math.sin(
+                    distance * this.waveFrequency * 0.02 - elapsedTime * 2,
+                ) *
+                    0.5 +
+                0.5;
+
+            // Add ripple effects
+            const ripple1 =
+                Math.sin(distance * 0.015 + elapsedTime * 3) * 0.4 + 0.6;
+            const ripple2 =
+                Math.sin(distance * 0.025 - elapsedTime * 4) * 0.3 + 0.7;
+            const rippleEffect = (ripple1 + ripple2) / 2;
+
+            // Only show waves within the current propagation front
+            if (distance > currentWaveFront) {
+                return 0;
+            }
+
+            // Fade waves as they move away from center
+            const maxRadius = Math.sqrt(centerX * centerX + centerY * centerY);
+            const distanceFade = 1 - distance / (currentWaveFront + 1);
+
+            const combinedIntensity =
+                wavePattern * this.waveAmplitude * rippleEffect * distanceFade;
+
+            return Math.max(0, Math.min(1, combinedIntensity));
+        }
+
+        drawFrame(time) {
+            // Clear canvas with dark background
+            this.ctx.fillStyle = "#000000";
+            this.ctx.fillRect(
+                0,
+                0,
+                this.canvasSize.width,
+                this.canvasSize.height,
+            );
+
+            const centerX = this.canvasSize.width / 2;
+            const centerY = this.canvasSize.height / 2;
+            const maxRadius = Math.sqrt(centerX * centerX + centerY * centerY);
+
+            let randomnes = 2;
+
+            // Draw multiple wave layers for depth
+            for (let layer = 0; layer < 2; layer++) {
+                const layerOffset = layer * 10; // Offset each layer
+
+                // Draw the wave as concentric circles
+                for (let radius = 0; radius < maxRadius; radius += 2) {
+                    const intensity = this.getWaveIntensity(
+                        radius + layerOffset,
+                        0,
+                        time,
+                    );
+
+                    if (intensity > 0.02) {
+                        const alpha = intensity * (1 - layer * 0.25); // Fade outer layers
+
+                        this.ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
+                        this.ctx.lineWidth = Math.max(
+                            0.5,
+                            intensity * (Math.random() * 8 + 4),
+                        );
+                        this.ctx.beginPath();
+                        this.ctx.arc(
+                            centerX * (Math.random() * randomnes),
+                            centerY * (Math.random() * randomnes),
+                            radius + layerOffset,
+                            0,
+                            Math.PI * 2,
+                        );
+                        this.ctx.stroke();
+
+                        // Add glow effect for bright areas
+                        if (intensity > 0.2) {
+                            this.ctx.shadowColor = `rgba(255, 255, 255, ${alpha * 0.7})`;
+                            this.ctx.shadowBlur = 10;
+                            this.ctx.stroke();
+                            this.ctx.shadowBlur = 0;
+                        }
+                    }
+                }
+            }
+
+            // Draw center point to show origin
+            // this.ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+            // this.ctx.beginPath();
+            // this.ctx.arc(centerX, centerY, 2, 0, Math.PI * 2);
+            // this.ctx.fill();
+            this.updateAudio(time);
+        }
+        initAudio() {
+            try {
+                this.audioContext = new (
+                    window.AudioContext || window.webkitAudioContext
+                )();
+
+                // Create master gain node
+                this.masterGain = this.audioContext.createGain();
+                this.masterGain.connect(this.audioContext.destination);
+                this.masterGain.gain.setValueAtTime(
+                    0.3,
+                    this.audioContext.currentTime,
+                );
+
+                // Create main wave oscillator
+                this.waveOscillator = this.audioContext.createOscillator();
+                this.waveOscillator.type = "sine";
+                this.waveOscillator.frequency.setValueAtTime(
+                    this.centerFrequency,
+                    this.audioContext.currentTime,
+                );
+
+                this.waveGain = this.audioContext.createGain();
+                this.waveGain.gain.setValueAtTime(
+                    0,
+                    this.audioContext.currentTime,
+                );
+
+                this.waveOscillator.connect(this.waveGain);
+                this.waveGain.connect(this.masterGain);
+                this.waveOscillator.start();
+
+                // Create ripple oscillators for spatial effect
+                for (let i = 0; i < 3; i++) {
+                    const rippleOsc = this.audioContext.createOscillator();
+                    rippleOsc.type =
+                        i === 0 ? "sine" : i === 1 ? "triangle" : "sawtooth";
+                    rippleOsc.frequency.setValueAtTime(
+                        this.centerFrequency * (1 + i * 0.5),
+                        this.audioContext.currentTime,
+                    );
+
+                    const rippleGain = this.audioContext.createGain();
+                    rippleGain.gain.setValueAtTime(
+                        0,
+                        this.audioContext.currentTime,
+                    );
+
+                    rippleOsc.connect(rippleGain);
+                    rippleGain.connect(this.masterGain);
+                    rippleOsc.start();
+
+                    this.rippleOscillators.push(rippleOsc);
+                    this.rippleGains.push(rippleGain);
+                }
+
+                this.audioInitialized = true;
+            } catch (error) {
+                console.error("Failed to initialize audio:", error);
+            }
+        }
+
+        updateAudio(time) {
+            if (
+                !this.audioInitialized ||
+                !this.soundEnabled ||
+                !this.audioContext
+            ) {
+                return;
+            }
+
+            const elapsedTime =
+                (time - this.startTime) * 0.001 * this.animationSpeed;
+            const centerX = this.canvasSize.width / 2;
+            const centerY = this.canvasSize.height / 2;
+            const maxRadius = Math.sqrt(centerX * centerX + centerY * centerY);
+
+            // Calculate average wave intensity at different distances
+            const distances = [50, 100, 150];
+            let avgIntensity = 0;
+
+            distances.forEach((distance, index) => {
+                const intensity = this.getWaveIntensity(distance, 0, time);
+                avgIntensity += intensity;
+
+                // Update ripple oscillators
+                if (this.rippleOscillators[index] && this.rippleGains[index]) {
+                    const frequency =
+                        this.centerFrequency +
+                        intensity * this.frequencyRange * (1 + index * 0.3);
+                    this.rippleOscillators[index].frequency.setTargetAtTime(
+                        frequency,
+                        this.audioContext.currentTime,
+                        0.1,
+                    );
+
+                    this.rippleGains[index].gain.setTargetAtTime(
+                        intensity * 0.1,
+                        this.audioContext.currentTime,
+                        0.05,
+                    );
+                }
+            });
+
+            avgIntensity /= distances.length;
+
+            // Update main wave oscillator
+            if (this.waveOscillator && this.waveGain) {
+                const frequency =
+                    this.centerFrequency + avgIntensity * this.frequencyRange;
+                this.waveOscillator.frequency.setTargetAtTime(
+                    frequency,
+                    this.audioContext.currentTime,
+                    0.1,
+                );
+
+                this.waveGain.gain.setTargetAtTime(
+                    avgIntensity * 0.2,
+                    this.audioContext.currentTime,
+                    0.05,
+                );
+            }
+
+            // Add subtle modulation based on overall wave propagation
+            const propagationProgress = Math.min(1, elapsedTime * 0.1);
+            if (this.masterGain) {
+                this.masterGain.gain.setTargetAtTime(
+                    0.1 + propagationProgress * 0.3,
+                    this.audioContext.currentTime,
+                    0.5,
+                );
+            }
+        }
+
+        animate() {
+            if (!this.running) return;
+
+            const now = performance.now();
+            this.drawFrame(now);
+
+            // Update FPS counter
+            const deltaTime = now - this.lastTime;
+            if (deltaTime >= 200) {
+                const fps = Math.round(1000 / deltaTime);
+                if (this.fpsElement) {
+                    this.fpsElement.textContent = fps + " fps";
+                }
+                this.lastTime = now;
+            }
+
+            requestAnimationFrame(() => this.animate());
+        }
+
+        start() {
+            this.running = true;
+            this.startTime = performance.now(); // Reset start time
+            this.lastTime = performance.now();
+            this.animate();
+        }
+
+        stop() {
+            this.running = false;
+            this.stopAudio();
+        }
+
+        destroy() {
+            this.stop();
+            if (this.audioContext) {
+                this.audioContext.close();
+            }
+            window.removeEventListener("resize", this.handleResize);
+        }
+    }
+
+    // Usage example:
+    // Initialize when DOM is ready
+    document.addEventListener("DOMContentLoaded", function () {
+        // Create animation instance
+        const waveAnimation = new CanvasWaveAnimation("wave-canvas", {
+            speed: 0.4,
+            amplitude: 0.15,
+            frequency: 2.0,
+        });
+
+        waveAnimation.start();
+    });
+</script>

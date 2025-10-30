@@ -1,0 +1,34 @@
+---
+import { MapContainer } from "../components/presentation/MapContainer";
+import { AudioExample } from "../components/presentation/AudioExample";
+import Layout from "../layouts/Layout.astro";
+import { ErrorBoundary } from "../components/chat/components/ErrorHandling";
+---
+
+<Layout>
+    <div class="flex justify-center w-full p-8">
+        <ErrorBoundary>
+            <AudioExample client:only="react" />
+        </ErrorBoundary>
+        <!-- <MapContainer client:only="react" /> -->
+        <!-- <div class="w-screen h-screen">
+            <Test client:only="react" />
+        </div> -->
+    </div>
+    <!-- <MediaContainer client:only="react" />
+
+    <div class="flex justify-center w-full">
+        <!-- <HeroSection /> -->
+    <!-- <ChatSwitch
+        client:only="react"
+        message={{
+            id: "23312123",
+            content: "./paza-moduless.mp3",
+            files: [],
+            avatar: "bla",
+            role: "assistant",
+            type: "audio",
+            timestamp: new Date(),
+        }}
+    /> -->
+</Layout>

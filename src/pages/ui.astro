@@ -1,0 +1,238 @@
+---
+import SectionScreen from "../components/SectionScreen.astro";
+// Components
+import ToastComponent from "../components/ToastComponent.astro";
+import CardHover from "../components/CardHover.astro";
+import Button from "../components/Button.astro";
+import { LLMChat } from "../components/chat/LLMChat";
+import HoverDropdownSection from "../components/presentation/HoverDropdownSection";
+import { GridMatrixPresentation } from "../components/presentation/GridMatrixPresentation";
+import { JoJoLand } from "../components/chat/components/JoJoLand";
+import { SignCard } from "../components/chat/components/SignCard";
+import { JojoItems } from "../components/chat/components/JojoItems";
+import HeroSection from "../components/presentation/HeroSection.astro";
+import Layout from "../layouts/Layout.astro";
+import { MapContainer } from "../components/presentation/MapContainer";
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+
+<Layout>
+    <HeroSection />
+
+    <div class="flex flex-col items-center justify-center p-8">
+        <SectionScreen
+            title="Data section"
+            description={`
+    Just a basic component for marketing purposes for hidden/encrpyted data.
+    Try out motion with svg animation and canvas for rendering the custom numbers behind the screen.
+    The eye is interactive try hoverin over the component
+    `}
+            code={`
+      <GridMatrixPresentation />
+    `}
+        >
+            <div class="w-128 h-128 flex">
+                <GridMatrixPresentation client:only="react" />
+            </div>
+        </SectionScreen>
+
+        <SectionScreen
+            title="Sign document"
+            description={`
+      This was inspired by Nitish Khagwal. Wanted to reinplement it with react and added
+      the neat feature with showing the signing in button.
+
+      [Twitter post](https://x.com/nitishkmrk/status/1944647046301921297)
+
+    `}
+            code={`
+      <SignCard />
+    `}
+        >
+            <div>
+                <SignCard client:only="react" />
+            </div>
+        </SectionScreen>
+
+        <SectionScreen
+            title="Hover dropdown"
+            description={`
+      Just trying to implement  the hover interaction from amazon.
+      For better interaction with the safe space for mouse inteaction before accessing the dropdown when moving the mouse`}
+            code={"<HoverDropdownSection />"}
+        >
+            <div class="relative">
+                <HoverDropdownSection client:only="react" />
+            </div>
+        </SectionScreen>
+
+        <SectionScreen
+            title="Map component"
+            description={`Experimentingn with different ways to disaply map on ui with funcionality`}
+            code={`
+            <MapMessage
+              message={JSON.stringify({
+                type: "FeatureCollection",
+                features: []
+              })}
+            />
+    `}
+        >
+            <MapContainer client:only="react" />
+        </SectionScreen>
+
+        <SectionScreen
+            title="Chat input"
+            description={`
+    My chat interface implementation for my Ai chat app in a different app. The LLM is disabled, don't want to
+    pay to much to my llm overlords 😅`}
+            code={"<LLMChat />"}
+        >
+            <LLMChat client:only="react" />
+        </SectionScreen>
+
+        <SectionScreen
+            title="Button component"
+            description={`Experimenting with different shading on buttons for making it more reaslistic with different shadow properties `}
+            code={"<Button>Click me</Button>"}
+        >
+            <Button>Click me</Button>
+        </SectionScreen>
+
+        <SectionScreen
+            title="Card componnet"
+            description="Experimentation fo toast component with different animation styles. This is mostly created with vanilla CSS and javascript"
+            code={`<Toast
+    title="Toast component"
+    description="Basic experimentation of working with toast components
+    />`}
+        >
+            <ToastComponent />
+        </SectionScreen>
+
+        <SectionScreen
+            title="Card inverted"
+            description={`Animation for bank companies. Trying to recreate a leather texture on the card`}
+            code={`<Card title="Card inverted" description="Basic css inverted example" />`}
+        >
+            <CardHover>
+                <div class="positioning-context">
+                    <div class="parent card-black">
+                        <div class="card-chip"></div>
+                        <div class="card-number">3782 8224 6310 004</div>
+                        <div class="card-holder">Asta UI</div>
+                        <div class="card-brand">AMEX</div>
+                    </div>
+                </div>
+            </CardHover>
+        </SectionScreen>
+        <SectionScreen
+            title="Jojo Land"
+            description={`This was just made bacause i like the colors from jojo part 9.
+    Learned show to use clip-path and mix-blend-mode. Love the future for fast image transformation`}
+            code={`
+            <JoJoLand
+                image="https://www.pngkey.com/maxpic/u2q8a9i1q8r5o0u2/"
+                client:only="react"
+            >
+                <JojoItems client:only="react" />
+            </JoJoLand>
+          `}
+        >
+            <div class="relative">
+                <JoJoLand
+                    image="https://www.pngkey.com/maxpic/u2q8a9i1q8r5o0u2/"
+                    client:only="react"
+                >
+                    <JojoItems client:only="react" />
+                </JoJoLand>
+            </div>
+        </SectionScreen>
+    </div>
+</Layout>
+
+<style>
+    .positioning-context {
+        position: relative;
+        width: inherit;
+        height: inherit;
+        padding: 12px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        perspective: 1000px;
+        color: white;
+    }
+    .parent {
+        width: inherit;
+        height: inherit;
+        border-radius: 12px;
+        /*padding: 20px;*/
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        transform-style: preserve-3d;
+        transition: transform 0.3s;
+        color: white;
+        overflow: hidden;
+        transform: rotateY(5deg);
+    }
+    .parent:hover {
+        transform: rotateY(0) translateY(-4px);
+    }
+    .parent * {
+        color: white;
+    }
+    .parent::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 12px;
+        background:
+            linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+            linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0.08) 1px,
+                transparent 1px
+            );
+        background-size: 20px 20px;
+        z-index: 0;
+    }
+    .card-black {
+        background: linear-gradient(135deg, #333, #111);
+        inset: 0 20px 20px 0;
+        color: white;
+    }
+    .card-chip {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        width: 40px;
+        height: 30px;
+        background: #c0c0c0;
+        border-radius: 4px;
+        box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+    }
+    .card-number {
+        position: absolute;
+        bottom: 40px;
+        left: 20px;
+        font-size: 14px;
+        letter-spacing: 2px;
+    }
+    .card-brand {
+        position: absolute;
+        bottom: 15px;
+        right: 20px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+    .card-holder {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        font-size: 12px;
+        text-transform: uppercase;
+    }
+</style>

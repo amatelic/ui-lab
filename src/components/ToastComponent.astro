@@ -1,0 +1,267 @@
+<div class="toast-main">
+    <div>
+        <button class="button-toast">Toast</button>
+    </div>
+    <div class="toast-container">
+        <div class="toast-list"></div>
+    </div>
+</div>
+
+<script>
+    const button = document.querySelector(
+        ".button-toast",
+    ) as HTMLButtonElement | null;
+    const toastList = document.querySelector(
+        ".toast-list",
+    ) as HTMLDivElement | null;
+    const toastContainer = document.querySelector(
+        ".toast-container",
+    ) as HTMLDivElement | null;
+
+    if (!button || !toastList || !toastContainer) {
+        throw new Error("Required elements not found");
+    }
+
+    // Add explicit type annotations
+    const toastElements: HTMLDivElement[] = [];
+    const maxCountNumber = 3;
+    let count = 0;
+    let tmpElement: HTMLDivElement | null = null;
+
+    const createToast = (index: number, count = 0) => {
+        const toastElement = document.createElement("div");
+
+        toastElement.innerHTML = `
+          <div class="container">
+            <p>This is a toast ${count}<p>
+          </div>
+        `;
+
+        // How to correctly update z index on popup
+        // How to animate
+        toastElement.style.setProperty("--el-index", index.toString());
+        toastElement.classList.add("toast-item");
+        return toastElement;
+    };
+
+    toastContainer.addEventListener("mouseover", () => {
+        toastContainer.classList.add("is-hover");
+    });
+
+    toastContainer.addEventListener("mouseout", () => {
+        toastContainer.classList.remove("is-hover");
+    });
+
+    button.addEventListener("click", () => {
+        if (tmpElement) {
+            tmpElement.classList.remove("starting-toast");
+            tmpElement.classList.remove("ending-toast");
+            toastElements.push(tmpElement);
+        }
+
+        if (toastElements.length > maxCountNumber) {
+            const element = toastElements.shift();
+            if (element) {
+                element.remove();
+            }
+        }
+
+        for (let i = 0; i <= toastElements.length - 1; i++) {
+            toastElements[i].style.setProperty(
+                "--el-index",
+                `${toastElements.length - i}`,
+            );
+            toastElements[i].style.setProperty("--z-index", `${i + 1}`);
+        }
+
+        // Append new Toast
+        count++;
+        const toastElement = createToast(maxCountNumber + 1, count);
+        toastElement.classList.add("starting-toast");
+        toastList.append(toastElement);
+        tmpElement = toastElement;
+
+        setTimeout(() => {
+            toastElement.classList.add("ending-toast");
+        }, 20);
+    });
+</script>
+
+<style is:global>
+    .toast-main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        padding: 2rem 1rem;
+        margin: -16px;
+        background-color: #e5e5f7;
+        opacity: 0.8;
+        box-sizing: border-box;
+        background-image:
+            radial-gradient(#444cf7 0px, transparent 0px),
+            radial-gradient(#444cf7 0.5px, #e5e5f7 0.5px);
+        background-size: 20px 20px;
+        background-position:
+            0 0,
+            0px 0px;
+    }
+
+    .toast-container {
+        position: absolute;
+        right: 40px;
+        bottom: 60px;
+        width: 300px;
+        height: 50px;
+        padding: 2rem;
+    }
+
+    .toast-list {
+        position: relative;
+        list-style: none;
+        --el-index-perspective: 1000px;
+    }
+
+    .toast-item {
+        --el-index: 0;
+        --el-height: 50px;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        box-sizing: border-box;
+        display: flex;
+        height: auto;
+        cursor: pointer;
+        transform-origin: center;
+        z-index: calc(var(--z-index));
+        transition: all 0.2s ease;
+        opacity: calc(1 - var(--el-index) * 0.2);
+        transform: translateX(calc(10px * var(--el-index)))
+            translateY(calc((15px * var(--el-index)) * -1 - 5px))
+            scale(calc(1 - var(--el-index) * 0.1));
+    }
+
+    .toast-item:after {
+        content: "";
+        top: -10px;
+        left: 0px;
+        width: 100%;
+        height: 10px;
+        position: absolute;
+    }
+
+    .is-hover .toast-item {
+        opacity: 1;
+        transform: translateY(
+                calc(((var(--el-height) * -1 - 10px) * (var(--el-index))))
+            )
+            scale(1);
+    }
+
+    .is-hover .toast-item:last-child {
+        opacity: 1;
+        transform: translateY(0px) scale(1);
+    }
+
+    .starting-toast {
+        opacity: 1;
+        transition: all 0.2s ease;
+        transform: translateY(50px);
+        z-index: 10;
+    }
+
+    .ending-toast {
+        opacity: 1;
+        transform: translateY(0px);
+        z-index: 10;
+    }
+
+    .container {
+        border-radius: 12px;
+        background: white;
+        width: 100%;
+        padding: 1rem;
+        height: min-content;
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    }
+
+    /**
+*Heading container
+*/
+    .selection-item {
+        padding: 1rem 2rem;
+        width: min-content;
+        height: auto;
+        box-shadow: inset -2px -1px 10px -1px rgba(0, 0, 0, 0.2);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: 0.5s ease-in;
+    }
+
+    .selection-header {
+        padding: 0.5rem 0px;
+        cursor: pointer;
+    }
+
+    .selection-body {
+        padding-left: 0.9rem;
+    }
+
+    .button-toast {
+        appearance: button;
+        background-color: #000;
+        background-image: none;
+        border: 1px solid #000;
+        border-radius: 4px;
+        box-shadow:
+            #fff 4px 4px 0 0,
+            #000 4px 4px 0 1px;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: inline-block;
+        font-family: ITCAvantGardeStd-Bk, Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        margin: 0 5px 10px 0;
+        overflow: visible;
+        padding: 12px 40px;
+        text-align: center;
+        text-transform: none;
+        touch-action: manipulation;
+        user-select: none;
+        -webkit-user-select: none;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    .button:focus {
+        text-decoration: none;
+    }
+
+    .button:hover {
+        text-decoration: none;
+    }
+
+    .button:active {
+        box-shadow: rgba(0, 0, 0, 0.125) 0 3px 5px inset;
+        outline: 0;
+    }
+
+    .button:not([disabled]):active {
+        box-shadow:
+            #fff 2px 2px 0 0,
+            #000 2px 2px 0 1px;
+        transform: translate(2px, 2px);
+    }
+
+    @media (min-width: 768px) {
+        .button {
+            padding: 12px 50px;
+        }
+    }
+</style>
