@@ -1,210 +1,722 @@
----
-import astroLogo from '../assets/astro.svg';
-import background from '../assets/background.svg';
----
+<header
+    class="sticky top-0 z-50 backdrop-blur-lg bg-bg-primary/75 border-b border-card-border/65"
+>
+    <div
+        class="container mx-auto px-4 py-3.5 flex items-center justify-between"
+    >
+        <div class="flex items-center gap-3 font-bold">
+            <div
+                class="w-7 h-7 rounded-lg bg-gradient-to-br from-brand to-accent shadow-lg"
+            >
+            </div>
+            Aether UI
+        </div>
+        <nav class="hidden md:flex items-center gap-5">
+            <a
+                href="#components"
+                class="text-fg-muted hover:text-fg-primary font-semibold transition-colors"
+                >Components</a
+            >
+            <a
+                href="#docs"
+                class="text-fg-muted hover:text-fg-primary font-semibold transition-colors"
+                >Docs</a
+            >
+            <a
+                href="#github"
+                class="text-fg-muted hover:text-fg-primary font-semibold transition-colors"
+                >GitHub</a
+            >
+            <a
+                href="#get-started"
+                class="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 border border-card-border bg-gray-800 hover:bg-gray-700 text-fg-primary font-bold transition-all duration-200 hover:-translate-y-0.5"
+                >Get started</a
+            >
+        </nav>
+    </div>
+</header>
 
-<div id="container">
-	<img id="background" src={background.src} alt="" fetchpriority="high" />
-	<main>
-		<section id="hero">
-			<a href="https://astro.build"
-				><img src={astroLogo.src} width="115" height="48" alt="Astro Homepage" /></a
-			>
-			<h1>
-				To get started, open the <code><pre>src/pages</pre></code> directory in your project.
-			</h1>
-			<section id="links">
-				<a class="button" href="https://docs.astro.build">Read our docs</a>
-				<a href="https://astro.build/chat"
-					>Join our Discord <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.14 96.36"
-						><path
-							fill="currentColor"
-							d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15ZM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69Zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69Z"
-						></path></svg
-					>
-				</a>
-			</section>
-		</section>
-	</main>
+<main class="container mx-auto px-4">
+    <section
+        class="py-6 md:py-10 grid lg:grid-cols-11 gap-6 md:gap-12 items-center"
+    >
+        <div class="lg:col-span-6">
+            <div
+                class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm border border-brand/35 bg-brand/8 text-brand"
+            >
+                <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                    ><path
+                        d="M12 2l3 7h7l-5.5 4.2L18 21l-6-4-6 4 1.5-7.8L2 9h7z"
+                    ></path></svg
+                >
+                New: v1.0 components
+            </div>
+            <h1
+                class="text-4xl md:text-6xl font-bold leading-tight mt-3 mb-4 tracking-tight"
+            >
+                Build beautiful, accessible interfaces—fast.
+            </h1>
+            <p class="text-fg-muted text-lg md:text-xl max-w-prose">
+                A modular component library with sensible defaults, headless
+                logic, and themes. Type-safe, keyboard-friendly, and
+                framework-agnostic.
+            </p>
+            <div class="mt-5 flex flex-wrap gap-3">
+                <a
+                    href="#get-started"
+                    class="inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-bold border border-brand/60 bg-gradient-to-b from-brand/16 to-gray-800 hover:from-brand/26 hover:to-gray-700 transition-all duration-200 hover:-translate-y-0.5"
+                    >Get started</a
+                >
+                <a
+                    href="#components"
+                    class="inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-bold border border-card-border bg-gray-800 hover:bg-gray-700 transition-all duration-200 hover:-translate-y-0.5"
+                    >Browse components</a
+                >
+            </div>
 
-	<a href="https://astro.build/blog/astro-5/" id="news" class="box">
-		<svg width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg"
-			><path
-				d="M24.667 12c1.333 1.414 2 3.192 2 5.334 0 4.62-4.934 5.7-7.334 12C18.444 28.567 18 27.456 18 26c0-4.642 6.667-7.053 6.667-14Zm-5.334-5.333c1.6 1.65 2.4 3.43 2.4 5.333 0 6.602-8.06 7.59-6.4 17.334C13.111 27.787 12 25.564 12 22.666c0-4.434 7.333-8 7.333-16Zm-6-5.333C15.111 3.555 16 5.556 16 7.333c0 8.333-11.333 10.962-5.333 22-3.488-.774-6-4-6-8 0-8.667 8.666-10 8.666-20Z"
-				fill="#111827"></path></svg
-		>
-		<h2>What's New in Astro 5.0?</h2>
-		<p>
-			From content layers to server islands, click to learn more about the new features and
-			improvements in Astro 5.0
-		</p>
-	</a>
-</div>
+            <div class="mt-8 grid sm:grid-cols-3 gap-4">
+                <div
+                    class="p-4 border border-card-border bg-card rounded-xl shadow-xl"
+                >
+                    <div
+                        class="w-9 h-9 rounded-lg bg-gradient-to-b from-brand/18 to-gray-800 border border-brand/45 grid place-items-center text-xl mb-2"
+                    >
+                        🧩
+                    </div>
+                    <h3 class="font-semibold mb-2">Composable</h3>
+                    <p class="text-fg-muted text-sm">
+                        Compose primitives into complex patterns with consistent
+                        APIs.
+                    </p>
+                </div>
+                <div
+                    class="p-4 border border-card-border bg-card rounded-xl shadow-xl"
+                >
+                    <div
+                        class="w-9 h-9 rounded-lg bg-gradient-to-b from-brand/18 to-gray-800 border border-brand/45 grid place-items-center text-xl mb-2"
+                    >
+                        ♿
+                    </div>
+                    <h3 class="font-semibold mb-2">Accessible by default</h3>
+                    <p class="text-fg-muted text-sm">
+                        ARIA baked-in, keyboard-first navigation, and proper
+                        semantics.
+                    </p>
+                </div>
+                <div
+                    class="p-4 border border-card-border bg-card rounded-xl shadow-xl"
+                >
+                    <div
+                        class="w-9 h-9 rounded-lg bg-gradient-to-b from-brand/18 to-gray-800 border border-brand/45 grid place-items-center text-xl mb-2"
+                    >
+                        🎨
+                    </div>
+                    <h3 class="font-semibold mb-2">Themeable</h3>
+                    <p class="text-fg-muted text-sm">
+                        Light/dark, high-contrast, and custom themes with CSS
+                        variables.
+                    </p>
+                </div>
+            </div>
+        </div>
 
-<style>
-	#background {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		z-index: -1;
-		filter: blur(100px);
-	}
+        <div class="lg:col-span-5">
+            <div
+                class="border border-card-border bg-gradient-to-b from-card/90 to-card rounded-2xl p-3 md:p-4 shadow-2xl overflow-hidden"
+            >
+                <div
+                    class="border border-card-border bg-bg-secondary rounded-xl p-3 md:p-4 shadow-[0_0_18px_rgba(124,210,255,0.25),_0_0_45px_rgba(167,139,250,0.15)] relative"
+                >
+                    <div
+                        class="flex items-center justify-between mb-2 text-fg-muted text-xs"
+                    >
+                        <div class="flex gap-1.5">
+                            <div class="w-2.5 h-2.5 rounded-full bg-red-500">
+                            </div>
+                            <div class="w-2.5 h-2.5 rounded-full bg-yellow-500">
+                            </div>
+                            <div class="w-2.5 h-2.5 rounded-full bg-green-500">
+                            </div>
+                        </div>
+                        <span
+                            id="fps"
+                            aria-live="polite"
+                            title="Frames per second"
+                            class="opacity-80">— fps</span
+                        >
+                    </div>
+                    <pre
+                        id="ascii"
+                        role="img"
+                        aria-label="Animated ASCII Greek statue"
+                        class="font-mono text-[clamp(9px,1.55vw,16px)] leading-tight tracking-wide select-none text-slate-100 whitespace-pre"
+                        style="text-shadow: 0 0 1px rgba(124,210,255,0.15), 0 0 10px rgba(124,210,255,0.12); filter: saturate(110%);">
+                    </pre>
+                    <div
+                        class="absolute inset-0 pointer-events-none mix-blend-screen opacity-35 bg-gradient-to-b from-white/0 via-brand/6 to-white/0 animate-[scan_3.8s_linear_infinite]"
+                    >
+                    </div>
+                    <div
+                        class="mt-3 flex flex-wrap items-center gap-3 text-fg-muted text-xs"
+                    >
+                        <label
+                            class="inline-flex items-center gap-2 cursor-pointer select-none"
+                        >
+                            <input
+                                type="checkbox"
+                                id="toggleMotion"
+                                checked
+                                class="appearance-none w-9 h-5 bg-gray-800 border border-card-border rounded-full relative outline-none transition-colors checked:bg-brand/35 checked:border-brand/60"
+                            />
+                            <span
+                                class="relative w-3.5 h-3.5 bg-fg-primary rounded-full absolute top-0.5 left-0.5 transition-transform checked:translate-x-4"
+                            ></span>
+                            <span>Animate</span>
+                        </label>
+                        <span>Adjust window size to see responsive ASCII.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-	#container {
-		font-family: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
-		height: 100%;
-	}
+    <section id="components" class="mt-8">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6">Featured components</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+            <div
+                class="border border-card-border rounded-2xl p-4 bg-gradient-to-b from-card/90 to-card shadow-xl"
+            >
+                <div class="flex items-center justify-between mb-4">
+                    <div
+                        class="px-3 py-1.5 rounded-full border border-card-border bg-bg-secondary text-fg-muted text-xs font-medium"
+                    >
+                        Button
+                    </div>
+                    <div class="flex gap-2 flex-wrap">
+                        <span
+                            class="text-xs px-2 py-1 rounded-full border border-card-border bg-brand/12"
+                            >Variants</span
+                        >
+                        <span
+                            class="text-xs px-2 py-1 rounded-full border border-card-border bg-brand/12"
+                            >Sizes</span
+                        >
+                        <span
+                            class="text-xs px-2 py-1 rounded-full border border-card-border bg-brand/12"
+                            >Loading</span
+                        >
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-3 mb-4">
+                    <button
+                        class="inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-bold border border-brand/60 bg-gradient-to-b from-brand/16 to-gray-800 hover:from-brand/26 hover:to-gray-700 transition-all duration-200 hover:-translate-y-0.5"
+                        >Primary</button
+                    >
+                    <button
+                        class="inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-bold border border-card-border bg-gray-800 hover:bg-gray-700 transition-all duration-200 hover:-translate-y-0.5"
+                        >Secondary</button
+                    >
+                    <button
+                        class="inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-bold border border-card-border bg-gray-800 hover:bg-gray-700 transition-all duration-200 hover:-translate-y-0.5 opacity-50 cursor-not-allowed"
+                        disabled>Disabled</button
+                    >
+                    <button
+                        class="inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-bold border border-card-border bg-gray-800 hover:bg-gray-700 transition-all duration-200 hover:-translate-y-0.5 opacity-90"
+                        >Ghost</button
+                    >
+                </div>
+                <div
+                    class="bg-slate-900 text-slate-100 p-3 rounded-xl border border-slate-800 overflow-x-auto"
+                >
+                    <pre
+                        class="m-0 font-mono text-sm leading-relaxed">
+                <!-- <code>
+                    import { Button } from "aether-ui";
 
-	main {
-		height: 100%;
-		display: flex;
-		justify-content: center;
-	}
+export default function App() {
+  return (
+    &lt;Button variant="primary" onClick={() =>; console.log("clicked")};
+      Get started
+    &lt;/Button&gt;
+  );
+}</code></pre> -->
+          </pre>
+                </div>
 
-	#hero {
-		display: flex;
-		align-items: start;
-		flex-direction: column;
-		justify-content: center;
-		padding: 16px;
-	}
+                <div
+                    class="border border-card-border rounded-2xl p-4 bg-gradient-to-b from-card/90 to-card shadow-xl"
+                >
+                    <div class="flex items-center justify-between mb-4">
+                        <div
+                            class="px-3 py-1.5 rounded-full border border-card-border bg-bg-secondary text-fg-muted text-xs font-medium"
+                        >
+                            Dialog
+                        </div>
+                        <div class="flex gap-2 flex-wrap">
+                            <span
+                                class="text-xs px-2 py-1 rounded-full border border-card-border bg-brand/12"
+                                >Focus trap</span
+                            >
+                            <span
+                                class="text-xs px-2 py-1 rounded-full border border-card-border bg-brand/12"
+                                >Portal</span
+                            >
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-3 mb-4">
+                        <button
+                            id="openDialog"
+                            class="inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-bold border border-card-border bg-gray-800 hover:bg-gray-700 transition-all duration-200 hover:-translate-y-0.5"
+                            >Open dialog</button
+                        >
+                    </div>
+                    <div
+                        class="bg-slate-900 text-slate-100 p-3 rounded-xl border border-slate-800 overflow-x-auto"
+                    >
+                        <!-- <pre class="m-0 font-mono text-sm leading-relaxed">
+                <code>import { Dialog } from "aether-ui";
 
-	h1 {
-		font-size: 22px;
-		margin-top: 0.25em;
-	}
+export default function Example() {
+  return (
+    &lt;Dialog.Root&gt;
+      &lt;Dialog.Trigger&gt;Open&lt;/Dialog.Trigger&gt;
+      &lt;Dialog.Portal&gt;
+        &lt;Dialog.Overlay /&gt;
+        &lt;Dialog.Content aria-label="Welcome"&gt;...&lt;/Dialog.Content&gt;
+      &lt;/Dialog.Portal&gt;
+    &lt;/Dialog.Root&gt;
+  );
+}</code></pre> -->
+                    </div>
+                </div>
 
-	#links {
-		display: flex;
-		gap: 16px;
-	}
+                <div
+                    class="border border-card-border rounded-2xl p-4 bg-gradient-to-b from-card/90 to-card shadow-xl"
+                >
+                    <div class="flex items-center justify-between mb-4">
+                        <div
+                            class="px-3 py-1.5 rounded-full border border-card-border bg-bg-secondary text-fg-muted text-xs font-medium"
+                        >
+                            Tooltip
+                        </div>
+                        <div class="flex gap-2 flex-wrap">
+                            <span
+                                class="text-xs px-2 py-1 rounded-full border border-card-border bg-brand/12"
+                                >Hover</span
+                            >
+                            <span
+                                class="text-xs px-2 py-1 rounded-full border border-card-border bg-brand/12"
+                                >Focus</span
+                            >
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-3 mb-4">
+                        <button
+                            title="This is a native tooltip."
+                            class="inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-bold border border-card-border bg-gray-800 hover:bg-gray-700 transition-all duration-200 hover:-translate-y-0.5"
+                            >Hover me</button
+                        >
+                    </div>
+                    <div
+                        class="bg-slate-900 text-slate-100 p-3 rounded-xl border border-slate-800 overflow-x-auto"
+                    >
+                        <!-- <pre class="m-0 font-mono text-sm leading-relaxed">
+                <code>import { Tooltip } from "aether-ui";
 
-	#links a {
-		display: flex;
-		align-items: center;
-		padding: 10px 12px;
-		color: #111827;
-		text-decoration: none;
-		transition: color 0.2s;
-	}
+export default function Example() {
+  return (
+    &lt;Tooltip.Root&gt;
+      &lt;Tooltip.Trigger&gt;Hover me&lt;/Tooltip.Trigger&gt;
+      &lt;Tooltip.Content side="top"&gt;Tooltip content&lt;/Tooltip.Content&gt;
+    &lt;/Tooltip.Root&gt;
+  );
+}</code></pre> -->
+                    </div>
+                </div>
+            </div>
+        </div>
 
-	#links a:hover {
-		color: rgb(78, 80, 86);
-	}
+        <section id="docs" class="mt-8">
+            <h2 class="text-2xl md:text-3xl font-bold mb-6">Quick start</h2>
+            <div
+                class="border border-card-border bg-card rounded-xl p-6 shadow-xl"
+            >
+                <ol class="m-0 pl-6 text-fg-muted space-y-2">
+                    <li>
+                        Install the package: <code
+                            class="bg-bg-secondary px-2 py-0.5 rounded-md border border-card-border text-sm"
+                            >npm i aether-ui</code>
+                    </li>
+                    <li>Wrap your app with the provider and set a theme.</li>
+                    <li>
+                        Drop in components: Button, Dialog, Tooltip, Input, and
+                        more.
+                    </li>
+                </ol>
+                <div
+                    class="bg-slate-900 text-slate-100 p-3 rounded-xl border border-slate-800 overflow-x-auto mt-4"
+                >
+                    <!-- <pre class="m-0 font-mono text-sm leading-relaxed">
+              <code>import { AetherProvider, Button } from "aether-ui";
 
-	#links a svg {
-		height: 1em;
-		margin-left: 8px;
-	}
+export default function App() {
+  return (
+    &lt;AetherProvider theme="dark"&gt;
+      &lt;Button onClick={() =&gt; alert("Welcome!")}&gt;Hello&lt;/Button&gt;
+    &lt;/AetherProvider&gt;
+  );
+}</code></pre> -->
+                </div>
+            </div>
+        </section>
 
-	#links a.button {
-		color: white;
-		background: linear-gradient(83.21deg, #3245ff 0%, #bc52ee 100%);
-		box-shadow:
-			inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-			inset 0 -2px 0 rgba(0, 0, 0, 0.24);
-		border-radius: 10px;
-	}
+        <section id="get-started" class="mt-8">
+            <h2 class="text-2xl md:text-3xl font-bold mb-6">Get started</h2>
+            <div
+                class="border border-card-border bg-card rounded-xl p-6 shadow-xl"
+            >
+                <p class="text-fg-muted mt-0">
+                    Head to the repository for docs, examples, and a full
+                    component list.
+                </p>
+                <div class="mt-5 flex flex-wrap gap-3">
+                    <a
+                        id="github"
+                        href="https://example.com/aether-ui"
+                        target="_blank"
+                        rel="noreferrer"
+                        class="inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-bold border border-brand/60 bg-gradient-to-b from-brand/16 to-gray-800 hover:from-brand/26 hover:to-gray-700 transition-all duration-200 hover:-translate-y-0.5"
+                        >View on GitHub</a
+                    >
+                    <a
+                        href="#components"
+                        class="inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-bold border border-card-border bg-gray-800 hover:bg-gray-700 transition-all duration-200 hover:-translate-y-0.5"
+                        >Explore components</a
+                    >
+                </div>
+            </div>
+        </section>
+    </section>
 
-	#links a.button:hover {
-		color: rgb(230, 230, 230);
-		box-shadow: none;
-	}
+    <footer class="mt-8 border-t border-card-border py-7">
+        <div
+            class="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-3 text-fg-muted"
+        >
+            <span
+                >© <span id="year"></span> Aether UI. All rights reserved.</span
+            >
+            <span>Made with care for developers and designers.</span>
+        </div>
+    </footer>
 
-	pre {
-		font-family:
-			ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono',
-			monospace;
-		font-weight: normal;
-		background: linear-gradient(14deg, #d83333 0%, #f041ff 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-		margin: 0;
-	}
+    <script>
+        // Utility: clamp
+        const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
 
-	h2 {
-		margin: 0 0 1em;
-		font-weight: normal;
-		color: #111827;
-		font-size: 20px;
-	}
+        // ASCII Statue Renderer
+        (function () {
+            const pre = document.getElementById("ascii");
+            const fpsEl = document.getElementById("fps");
+            const toggleMotion = document.getElementById("toggleMotion");
 
-	p {
-		color: #4b5563;
-		font-size: 16px;
-		line-height: 24px;
-		letter-spacing: -0.006em;
-		margin: 0;
-	}
+            let animationId = null;
+            let running = true;
+            let reduceMotion = window.matchMedia(
+                "(prefers-reduced-motion: reduce)",
+            ).matches;
 
-	code {
-		display: inline-block;
-		background:
-			linear-gradient(66.77deg, #f3cddd 0%, #f5cee7 100%) padding-box,
-			linear-gradient(155deg, #d83333 0%, #f041ff 18%, #f5cee7 45%) border-box;
-		border-radius: 8px;
-		border: 1px solid transparent;
-		padding: 6px 8px;
-	}
+            // Build grid cache for performance
+            function buildGrid(cols, rows) {
+                // Compute geometry parameters relative to the ASCII grid
+                const cx = Math.floor(cols * 0.5);
+                const top = Math.floor(rows * 0.06);
 
-	.box {
-		padding: 16px;
-		background: rgba(255, 255, 255, 1);
-		border-radius: 16px;
-		border: 1px solid white;
-	}
+                const aBody = cols * 0.3; // bust semi-axis x
+                const bBody = rows * 0.34; // bust semi-axis y
+                const cyBody = rows * 0.42;
 
-	#news {
-		position: absolute;
-		bottom: 16px;
-		right: 16px;
-		max-width: 300px;
-		text-decoration: none;
-		transition: background 0.2s;
-		backdrop-filter: blur(50px);
-	}
+                const aHead = cols * 0.18;
+                const bHead = rows * 0.2;
+                const cyHead = rows * 0.18;
 
-	#news:hover {
-		background: rgba(255, 255, 255, 0.55);
-	}
+                // Base / pedestal parameters
+                const baseTop = Math.floor(rows * 0.72);
+                const baseHeight = Math.max(4, Math.floor(rows * 0.14));
+                const baseWidthCols = Math.floor(cols * 0.56);
+                const baseLeft = Math.floor(cx - baseWidthCols / 2);
+                const baseRight = baseLeft + baseWidthCols;
 
-	@media screen and (max-height: 368px) {
-		#news {
-			display: none;
-		}
-	}
+                // Capital (top slab)
+                const capWidth = Math.floor(baseWidthCols * 0.82);
+                const capLeft = Math.floor(cx - capWidth / 2);
+                const capRight = capLeft + capWidth;
+                const capTop = baseTop - Math.max(2, Math.floor(rows * 0.03));
 
-	@media screen and (max-width: 768px) {
-		#container {
-			display: flex;
-			flex-direction: column;
-		}
+                // Characters for tone
+                const ramp = [" ", ".", ":", "-", "=", "+", "*", "#", "%", "@"];
 
-		#hero {
-			display: block;
-			padding-top: 10%;
-		}
+                // Some subtle noise to avoid banding
+                const noise = new Float32Array(cols * rows);
+                for (let i = 0; i < noise.length; i++) {
+                    noise[i] = (Math.sin(i * 12.9898) * 43758.5453) % 1;
+                }
 
-		#links {
-			flex-wrap: wrap;
-		}
+                function shade(x, y) {
+                    // Base stone (bust + head)
+                    const ebBody =
+                        Math.pow((x - cx) / aBody, 2) +
+                        Math.pow((y - cyBody) / bBody, 2);
+                    const ebHead =
+                        Math.pow((x - cx) / aHead, 2) +
+                        Math.pow((y - cyHead) / bHead, 2);
+                    let inside = ebBody <= 1.0 || ebHead <= 1.0;
 
-		#links a.button {
-			padding: 14px 18px;
-		}
+                    // Carve a slight collar between head and body ( concave dip )
+                    if (y > cyBody - bBody * 0.35 && y < cyHead + bHead * 0.2) {
+                        const collar =
+                            Math.pow(
+                                (y - (cyHead + bHead * 0.18)) / (bBody * 0.35),
+                                2,
+                            ) + Math.pow((x - cx) / (aBody * 0.65), 2);
+                        if (collar < 1.0) inside = true; // ensure silhouette continuity
+                    }
 
-		#news {
-			right: 16px;
-			left: 16px;
-			bottom: 2.5rem;
-			max-width: 100%;
-		}
+                    // Pedestal regions
+                    const inCap =
+                        y >= capTop &&
+                        y <= capTop + 1 &&
+                        x >= capLeft &&
+                        x <= capRight;
+                    const inBase =
+                        y >= baseTop &&
+                        y < baseTop + baseHeight &&
+                        x >= baseLeft &&
+                        x <= baseRight;
 
-		h1 {
-			line-height: 1.5;
-		}
-	}
-</style>
+                    let v = 0; // density / intensity
+                    if (inside) {
+                        // Shade using a soft lighting model
+                        const lx = -0.55,
+                            ly = -0.35; // "light" from top-left
+                        const nxBody = (x - cx) / (aBody || 1);
+                        const nyBody = (y - cyBody) / (bBody || 1);
+                        const nxHead = (x - cx) / (aHead || 1);
+                        const nyHead = (y - cyHead) / (bHead || 1);
+                        const nx = ebBody < 1 ? nxBody : nxHead;
+                        const ny = ebBody < 1 ? nyBody : nyHead;
+                        const nDotL = clamp(
+                            (-(nx * lx + ny * ly) + 1) / 2,
+                            0,
+                            1,
+                        );
+                        v = 0.35 + 0.65 * Math.pow(nDotL, 1.2);
+                    } else if (inCap || inBase) {
+                        // Base is darker stone
+                        v = 0.25 + 0.2 * Math.random();
+                    }
+
+                    // Subtle marble veining noise
+                    if (v > 0) {
+                        const idx = y * cols + x;
+                        v = clamp(v + (noise[idx] - 0.5) * 0.12, 0, 1);
+                    }
+
+                    return v;
+                }
+
+                // Precompute cell info for rendering
+                const cells = new Array(rows);
+                for (let y = 0; y < rows; y++) {
+                    const row = new Array(cols);
+                    for (let x = 0; x < cols; x++) {
+                        const v = shade(x, y);
+                        const tone =
+                            v > 0
+                                ? ramp[
+                                      Math.min(
+                                          ramp.length - 1,
+                                          Math.floor(v * (ramp.length - 1)),
+                                      )
+                                  ]
+                                : " ";
+                        row[x] = { v, tone };
+                    }
+                    cells[y] = row;
+                }
+
+                return { cells, cols, rows, cx, top, baseTop, capTop };
+            }
+
+            function renderFrame(grid, frameIdx) {
+                // Slight breathing / lighting shift per frame
+                const cols = grid.cols,
+                    rows = grid.rows;
+                let out = "";
+                const frames = 3; // discrete light angles
+                const phase = frameIdx % frames;
+
+                for (let y = 0; y < rows; y++) {
+                    for (let x = 0; x < cols; x++) {
+                        const c = grid.cells[y][x];
+                        if (c.v === 0) {
+                            out += " ";
+                            continue;
+                        }
+
+                        // Rotate the "light" around the statue for 3 frames
+                        const s =
+                            (Math.sin((x + y + phase * 3) * 0.22) + 1) * 0.5; // 0..1
+                        const mixed = clamp(c.v * (0.78 + 0.22 * s), 0, 1);
+                        const idx = Math.min(
+                            ramp.length - 1,
+                            Math.floor(mixed * (ramp.length - 1)),
+                        );
+                        out += ramp[idx];
+                    }
+                    if (y < rows - 1) out += "\n";
+                }
+                return out;
+            }
+
+            // Responsive sizing
+            function computeGridSize() {
+                // Base size scales with viewport; clamp for readability
+                const vw = Math.max(320, window.innerWidth);
+                const cols =
+                    vw < 520 ? 68 : vw < 900 ? 86 : vw < 1300 ? 104 : 118;
+                const rows = clamp(Math.floor(cols * 0.42), 30, 60);
+                return { cols, rows };
+            }
+
+            let grid = buildGrid(...Object.values(computeGridSize()));
+
+            function draw(frame = 0) {
+                pre.textContent = renderFrame(grid, frame);
+            }
+
+            // Animation loop with FPS display
+            let last = performance.now();
+            let acc = 0;
+            let frames = 0;
+            let rafId = 0;
+
+            function loop(now) {
+                if (!running) return;
+                const dt = now - last;
+                last = now;
+                acc += dt;
+                frames++;
+
+                // Update FPS approx every 500ms
+                if (acc > 500) {
+                    const fps = Math.round((frames * 1000) / acc);
+                    fpsEl.textContent = fps + " fps";
+                    acc = 0;
+                    frames = 0;
+                }
+
+                // Render at ~18 fps for a crisp, low-power animation
+                const targetMs = 1000 / 18;
+                if (!loop.next || now >= loop.next) {
+                    loop.next = now + targetMs;
+                    draw(Math.floor(now / targetMs) % 3);
+                }
+
+                rafId = requestAnimationFrame(loop);
+            }
+
+            function start() {
+                if (reduceMotion || !toggleMotion.checked) {
+                    running = false;
+                    cancelAnimationFrame(rafId);
+                    draw(0);
+                    return;
+                }
+                if (!running) {
+                    running = true;
+                    last = performance.now();
+                    rafId = requestAnimationFrame(loop);
+                }
+            }
+
+            function stop() {
+                running = false;
+                cancelAnimationFrame(rafId);
+            }
+
+            toggleMotion.addEventListener("change", () => {
+                if (toggleMotion.checked) start();
+                else stop();
+            });
+
+            window.addEventListener("resize", () => {
+                const size = computeGridSize();
+                grid = buildGrid(size.cols, size.rows);
+                draw(0);
+            });
+
+            // Reduced motion support
+            const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+            media.addEventListener?.("change", (e) => {
+                reduceMotion = e.matches;
+                if (reduceMotion) {
+                    toggleMotion.checked = false;
+                    stop();
+                } else {
+                    toggleMotion.checked = true;
+                    start();
+                }
+            });
+            if (reduceMotion) {
+                toggleMotion.checked = false;
+            }
+
+            // Kick off
+            draw(0);
+            if (toggleMotion.checked && !reduceMotion) start();
+
+            // Footer year
+            document.getElementById("year").textContent =
+                new Date().getFullYear();
+        })();
+
+        // Fake dialog trigger just for demo
+        (function demoDialog() {
+            const btn = document.getElementById("openDialog");
+            if (!btn) return;
+            btn.addEventListener("click", () => {
+                alert("Aether UI Dialog demo — hook your real dialog here!");
+            });
+        })();
+    </script>
+
+    <style>
+        #background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            filter: blur(100px);
+        }
+
+        #container {
+            font-family:
+                Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans",
+                Arial, sans-serif;
+            height: 100%;
+        }
+
+        main {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</main>

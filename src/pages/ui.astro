@@ -1,20 +1,25 @@
 ---
-import Welcome from "../components/Welcome.astro";
-import Layout from "../layouts/Layout.astro";
-import LayoutSplit from "../layouts/LayoutSplit.astro";
 import SectionScreen from "../components/SectionScreen.astro";
-import "@fontsource-variable/inter";
-import "../styles/global.css";
-
 // Components
 import ToastComponent from "../components/ToastComponent.astro";
 import CardHover from "../components/CardHover.astro";
 import Button from "../components/Button.astro";
 import { LLMChat } from "../components/chat/LLMChat";
+import HoverDropdownSection from "../components/presentation/HoverDropdownSection";
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
+
+<SectionScreen
+    title="Hover dropdown"
+    description="Dropdown for items"
+    code={""}
+>
+    <div class="relative">
+        <HoverDropdownSection client:only="react" />
+    </div>
+</SectionScreen>
 
 <SectionScreen
     title="Chat input"

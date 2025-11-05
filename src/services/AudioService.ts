@@ -6,18 +6,17 @@ export class AudioRecordingService {
   transcribedSpeech: string = "";
 
   constructor(private stream: MediaStream) {
-    this.recorder = new MediaRecorder(stream);
+    // this.recorder = new MediaRecorder(stream);
     this.recognition = new SpeechRecognition();
     this.recognition.lang = "en-US";
     this.recognition.interimResults = false;
-    this.recognition.maxAlternatives = 1;
+    this.recognition.continuous = false;
   }
 
   async startRecording() {
     try {
       this.isRecording = true;
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      this.recorder = new MediaRecorder(stream);
+      // this.recorder = new MediaRecorder(stream);
       // const chunks: Blob[] = [];
 
       // this.recorder.ondataavailable = (e) => chunks.push(e.data);
@@ -38,19 +37,26 @@ export class AudioRecordingService {
   async stop(): Promise<string> {
     return new Promise<string>((resolve) => {
       this.recognition.onresult = (event) => {
+        console.log("[TEST] audio", event);
         this.transcribedSpeech += event.results[0][0].transcript.toLowerCase();
-        this.recognition.stop();
-        this.recorder.stream.getTracks().forEach((track) => track.stop());
-        this.recognition.removeEventListener("result");
-
+        // this.recorder.stream.getTracks().forEach((track) => track.stop());
+        // this.recognition.removeEventListener("result");
         resolve(this.transcribedSpeech);
       };
-      if (this.recorder) {
-        this.isRecording = false;
-        this.recorder.stop();
-        // this.recorder.stream.getTracks().forEach((track) => track.stop());
-        this.recognition.stop();
-      }
+
+      this.recognition.onend = () => {
+        console.log("Recognition ended");
+      };
+
+      this.recognition.onerror = (event) => {
+        console.error("Recognition error:", event.error);
+      };
+      // this.recognition.onerror = (event) => {
+      //   console.log("[TEST] audio", event);
+      // };
+      this.isRecording = false;
+      // this.recorder.stop();
+      this.recognition.stop();
     });
   }
 

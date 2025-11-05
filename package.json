@@ -12,16 +12,23 @@
     "@astrojs/partytown": "^2.1.4",
     "@astrojs/react": "^4.4.0",
     "@fontsource-variable/inter": "^5.2.8",
+    "@svgr/plugin-svgo": "^8.1.0",
     "@tailwindcss/vite": "^4.1.14",
     "@types/dom-speech-recognition": "^0.0.7",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "astro": "^5.14.6",
+    "astro-icon": "^1.1.5",
+    "deck.gl": "^9.2.2",
     "motion": "^12.23.24",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-infinite-scroll-component": "^6.1.0",
     "react-leaflet": "^5.0.0",
-    "tailwindcss": "^4.1.14"
+    "tailwindcss": "^4.1.14",
+    "vite-plugin-svgr": "4"
+  },
+  "devDependencies": {
+    "@iconify-json/mdi": "^1.2.3"
   }
 }
