@@ -1,17 +1,30 @@
-import { useState, useRef, useEffect, Children } from "react";
+import {
+  useState,
+  useRef,
+  useEffect,
+  Children,
+  type PointerEventHandler,
+  type PointerEvent,
+} from "react";
 import { SafeSpace } from "./SafeSpace";
 import useMousePosition from "../../../hooks/mousemove";
 import { createPortal } from "react-dom";
 
-const HoverDropdown = ({ triggerContent, children }) => {
+const HoverDropdown = ({
+  triggerContent,
+  children,
+}: {
+  triggerContent: React.ReactNode;
+  children: React.ReactNode;
+}) => {
   const { x, y } = useMousePosition();
   const [isOpen, setIsOpen] = useState(false);
-  const containerRef = useRef(null);
-  const triggerRef = useRef(null);
-  const dropdownRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (isOpen && event.key === "Escape") {
         setTimeout(() => setIsOpen(false), 200);
       }
@@ -51,16 +64,14 @@ const HoverDropdown = ({ triggerContent, children }) => {
     }
   }, [isOpen]);
 
-  const handleClose = (e) => {
-    console.log("[TEST]", containerRef.current, e.relatedTarget);
-
+  const handleClose = (e: PointerEvent<HTMLDivElement>) => {
     if (e.relatedTarget === window) {
       setIsOpen(false);
       return;
     }
 
     setTimeout(() => {
-      if (containerRef.current.contains(e.relatedTarget)) {
+      if (containerRef.current?.contains(e.relatedTarget as Node)) {
         return;
       }
       setIsOpen(false);
@@ -79,11 +90,8 @@ const HoverDropdown = ({ triggerContent, children }) => {
       {triggerRef.current && dropdownRef.current && (
         <>
           <SafeSpace
-            svgWidth={100}
-            svgHeight={50}
-            submenuHeight={25}
-            submenuY={dropdownRef.current.getBoundingClientRect().top}
-            submenuX={dropdownRef.current.getBoundingClientRect().left}
+            triggerRef={triggerRef.current}
+            submenuRef={dropdownRef.current}
             mouseX={x || 0}
             mouseY={y || 0}
           />
@@ -110,6 +118,7 @@ const HoverDropdown = ({ triggerContent, children }) => {
         {triggerContent}
       </div>
       {isOpen &&
+        triggerRef.current &&
         createPortal(
           <div
             ref={dropdownRef}

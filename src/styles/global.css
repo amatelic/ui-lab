@@ -149,8 +149,6 @@ section {
 }
 
 .message-avatar {
-    margin-right: 10px;
-    margin-top: 5px;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -948,4 +946,9 @@ section {
     left: 0;
     margin-left: -12px;
     border-right-color: #fff;
+}
+
+.marp-slide-container {
+    width: 300px;
+    height: 300px;
 }

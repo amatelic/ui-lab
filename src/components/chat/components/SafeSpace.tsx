@@ -1,31 +1,32 @@
 // Component for making invisible path for hover effect which are not cupled to other component
+
+import type { RefObject } from "react";
+
 export const SafeSpace = ({
-  svgWidth,
-  svgHeight,
-  submenuHeight,
-  submenuY,
-  submenuX,
   mouseX,
   mouseY,
+  triggerRef,
+  submenuRef,
 }: {
-  svgWidth: number;
-  svgHeight: number;
-  submenuHeight: number;
-  submenuX: number;
-  submenuY: number;
   mouseX: number;
   mouseY: number;
+  triggerRef: HTMLDivElement;
+  submenuRef: HTMLDivElement;
 }) => {
+  const submenuRect = submenuRef.getBoundingClientRect();
+  const triggerRect = triggerRef.getBoundingClientRect();
+  const spaceBetweemItems = submenuRect.top - triggerRect.bottom;
+
   return (
     <svg
       style={{
         position: "fixed",
-        width: svgWidth,
-        height: submenuHeight,
+        width: submenuRect.width,
+        height: triggerRect.height + spaceBetweemItems,
         pointerEvents: "none",
         zIndex: 100000,
-        top: submenuY - 20,
-        left: submenuX - 2,
+        top: triggerRect.top,
+        left: triggerRect.left,
       }}
       id="svg-safe-area"
     >
@@ -35,9 +36,9 @@ export const SafeSpace = ({
         stroke="red"
         strokeWidth="0.4"
         fill="rgb(114 140 89 / 0.3)"
-        d={`M  ${mouseX - submenuX}, 0
-          L 0, ${submenuHeight}
-          L ${svgWidth}, ${submenuHeight}
+        d={`M  ${mouseX - submenuRect.left}, 0
+          L 0, ${triggerRect.bottom}
+          L ${submenuRect.width}, ${triggerRect.bottom}
         z`}
       />
     </svg>

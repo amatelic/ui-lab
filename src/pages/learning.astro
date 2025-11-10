@@ -1,0 +1,12 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { ButtonMotion, Rotate } from "../playground/ButtonMotion";
+---
+
+<Layout>
+    <ButtonMotion client:only="react" />
+</Layout>
+
+<Layout>
+    <Rotate client:only="react" />
+</Layout>

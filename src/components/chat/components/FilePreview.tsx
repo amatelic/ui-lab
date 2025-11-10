@@ -1,12 +1,13 @@
-import { div } from "motion/react-client";
 import { motion } from "motion/react";
 
 export function FilePreview({
   files,
   removeOnIndex,
+  showDeleteButton = true,
 }: {
   files: File[];
-  removeOnIndex: (index: number) => void;
+  showDeleteButton: boolean;
+  removeOnIndex?: (index: number) => void;
 }) {
   return (
     <div id="filePreview" className="mt-3 flex gap-2 overflow-x-auto">
@@ -56,25 +57,27 @@ export function FilePreview({
           <span className="text-xs text-gray-600 truncate w-20 text-center">
             {file.name}
           </span>
-          <button
-            onClick={() => removeOnIndex(index)}
-            className="absolute -top-1 -right-1 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-gray-200 hover:bg-gray-100"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-3 w-3 text-gray-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+          {showDeleteButton && (
+            <button
+              onClick={() => removeOnIndex && removeOnIndex(index)}
+              className="absolute -top-1 -right-1 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-gray-200 hover:bg-gray-100"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-              />
-            </svg>
-          </button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-3 w-3 text-gray-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                />
+              </svg>
+            </button>
+          )}
         </motion.div>
       ))}
     </div>

@@ -1,6 +1,5 @@
 ---
-import AsciiAnimationfrom from "../components/AsciiAnimation.astro";
-
+import CircleAnimation from "../components/CircleAnimation.astro";
 import Layout from "../layouts/Layout.astro";
 
 interface Props {
@@ -19,7 +18,7 @@ const { title = "UI Lab", subtitle = "Where digital art meets code" } =
     <section class="hero-container">
         <h1 class="hero-title">{title}</h1>
         <p class="hero-subtitle">{subtitle}</p>
-        <AsciiAnimationfrom />
+        <CircleAnimation />
         <!-- <Welcome /> -->
     </section>
 </Layout>

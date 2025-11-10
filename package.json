@@ -9,9 +9,11 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@amatelic/oa": "^0.0.2",
     "@astrojs/partytown": "^2.1.4",
     "@astrojs/react": "^4.4.0",
     "@fontsource-variable/inter": "^5.2.8",
+    "@marp-team/marp-core": "^4.2.0",
     "@svgr/plugin-svgo": "^8.1.0",
     "@tailwindcss/vite": "^4.1.14",
     "@types/dom-speech-recognition": "^0.0.7",
@@ -20,11 +22,16 @@
     "astro": "^5.14.6",
     "astro-icon": "^1.1.5",
     "deck.gl": "^9.2.2",
+    "highlight.js": "^11.11.1",
     "motion": "^12.23.24",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-infinite-scroll-component": "^6.1.0",
     "react-leaflet": "^5.0.0",
+    "react-markdown": "^10.1.0",
+    "rehype-highlight": "^7.0.2",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0",
     "tailwindcss": "^4.1.14",
     "vite-plugin-svgr": "4"
   },

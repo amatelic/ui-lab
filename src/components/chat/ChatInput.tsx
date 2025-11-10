@@ -1,9 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import {
-  AudioRecordingService,
-  recordingRef,
-} from "../../services/AudioService";
 import { RightSideControl } from "./components/RightSideControl";
 import { FilePreview } from "./components/FilePreview";
 import { useSpeechRecognition } from "../../hooks/speechRecognition";
@@ -21,16 +17,18 @@ const ChatInput = ({
   const [files, setFiles] = useState<FileWithPreview[]>([]);
   const messageInputRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { transcribedSpeech, isListening, startListening, stopListening } =
-    useSpeechRecognition((transcribed) => {
+
+  const { isListening, startListening, stopListening } = useSpeechRecognition(
+    (transcribed) => {
       console.log(transcribed);
       if (transcribed && messageInputRef.current) {
         messageInputRef.current.innerText = transcribed;
         setMessage(transcribed);
       }
-    });
+    },
+  );
 
-  const showSendButton = message.length > 0;
+  const showSendButton = !isListening && message.length > 0;
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -67,7 +65,6 @@ const ChatInput = ({
       onMessage(message, files);
       setMessage("");
       setFiles([]);
-      startListening();
       if (messageInputRef.current) {
         messageInputRef.current.innerText = "";
       }
@@ -184,6 +181,7 @@ const ChatInput = ({
           </div>
         </div>
       </div>
+      <div className="hidden !mr-2 !ml-2"></div>
     </div>
   );
 };
