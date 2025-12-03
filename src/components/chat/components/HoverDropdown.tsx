@@ -9,6 +9,7 @@ import {
 import { SafeSpace } from "./SafeSpace";
 import useMousePosition from "../../../hooks/mousemove";
 import { createPortal } from "react-dom";
+import { useRect } from "../../../hooks/userRect";
 
 const HoverDropdown = ({
   triggerContent,
@@ -20,8 +21,9 @@ const HoverDropdown = ({
   const { x, y } = useMousePosition();
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const triggerRef = useRef<HTMLDivElement>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLElement>(null);
+  const dropdownRef = useRef<HTMLElement>(null);
+  const trigerRect = useRect(triggerRef);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -29,47 +31,57 @@ const HoverDropdown = ({
         setTimeout(() => setIsOpen(false), 200);
       }
     };
-    // document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("keydown", handleKeyDown);
     return () => {
-      // document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen]);
 
   useEffect(() => {
-    if (isOpen && dropdownRef.current && triggerRef.current) {
-      const dropdown = dropdownRef.current;
-      const trigger = triggerRef.current;
+    if (!isOpen || !triggerRef.current || !dropdownRef.current) return;
+
+    const updatePosition = () => {
+      const trigger = triggerRef.current!;
+      const dropdown = dropdownRef.current!;
       const triggerRect = trigger.getBoundingClientRect();
       const dropdownRect = dropdown.getBoundingClientRect();
-      const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
+      const scrollX = window.scrollX || window.pageXOffset;
+      const scrollY = window.scrollY || window.pageYOffset;
 
-      // X-axis: Center if not enough space on either side
-      if (
-        triggerRect.left + dropdownRect.width > viewportWidth ||
-        triggerRect.right - dropdownRect.width < 0
-      ) {
-        dropdown.style.left = `${triggerRect.left + triggerRect.width / 2 - dropdownRect.width / 2}px`;
-        dropdown.style.right = "auto";
-      }
+      // Calculate absolute position
+      let top = triggerRect.bottom + scrollY;
+      let left = triggerRect.left + scrollX;
 
-      // Y-axis: Flip up if not enough space below
-      if (triggerRect.bottom + dropdownRect.height > viewportHeight) {
+      // Flip up if not enough space below
+      if (triggerRect.bottom + dropdownRect.height > window.innerHeight) {
+        top =
+          triggerRect.top + scrollY - dropdownRect.height - triggerRect.height;
         dropdown.setAttribute("data-position", "top");
       } else {
         dropdown.removeAttribute("data-position");
       }
-    }
-  }, [isOpen]);
+
+      // Center if not enough space on either side
+      if (triggerRect.left + dropdownRect.width > window.innerWidth) {
+        left = triggerRect.right + scrollX - dropdownRect.width;
+      }
+
+      dropdown.style.top = `${top}px`;
+      dropdown.style.left = `${left}px`;
+    };
+
+    updatePosition();
+    window.addEventListener("scroll", updatePosition, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", updatePosition);
+    };
+  }, [isOpen, trigerRect]);
 
   const handleClose = (e: PointerEvent<HTMLDivElement>) => {
     if (e.relatedTarget === window) {
       setIsOpen(false);
       return;
     }
-
     setTimeout(() => {
       if (containerRef.current?.contains(e.relatedTarget as Node)) {
         return;
@@ -88,14 +100,12 @@ const HoverDropdown = ({
       onPointerLeave={handleClose}
     >
       {triggerRef.current && dropdownRef.current && (
-        <>
-          <SafeSpace
-            triggerRef={triggerRef.current}
-            submenuRef={dropdownRef.current}
-            mouseX={x || 0}
-            mouseY={y || 0}
-          />
-        </>
+        <SafeSpace
+          triggerRef={triggerRef.current}
+          submenuRef={dropdownRef.current}
+          mouseX={x}
+          mouseY={y}
+        />
       )}
       <div
         ref={triggerRef}
@@ -122,17 +132,12 @@ const HoverDropdown = ({
         createPortal(
           <div
             ref={dropdownRef}
-            className={`hover-dropdown fixed ${!isOpen ? "hover-dropdown-closing" : ""}`}
-            style={{
-              top: triggerRef.current?.getBoundingClientRect().top + 45,
-              left: triggerRef.current?.getBoundingClientRect().left,
-            }}
+            className={`hover-dropdown fixed ${!isOpen ? "hover-dropdown-closing bg-white" : ""}`}
+            role="menu"
+            tabIndex={0}
             onClick={() => {
               setIsOpen(!isOpen);
             }}
-            role="menu"
-            tabIndex={0}
-            aria-orientation="vertical"
           >
             {Children.map(children, (child, index) => (
               <div

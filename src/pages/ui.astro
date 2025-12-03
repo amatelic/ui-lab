@@ -6,80 +6,130 @@ import CardHover from "../components/CardHover.astro";
 import Button from "../components/Button.astro";
 import { LLMChat } from "../components/chat/LLMChat";
 import HoverDropdownSection from "../components/presentation/HoverDropdownSection";
+import { GridMatrixPresentation } from "../components/presentation/GridMatrixPresentation";
+import { JoJoLand } from "../components/chat/components/JoJoLand";
+import { SignCard } from "../components/chat/components/SignCard";
+import { JojoItems } from "../components/chat/components/JojoItems";
+import HeroSection from "../components/presentation/HeroSection.astro";
+import Layout from "../layouts/Layout.astro";
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<SectionScreen
-    title="Hover dropdown"
-    description="Dropdown for items"
-    code={""}
->
-    <div class="relative">
-        <HoverDropdownSection client:only="react" />
-    </div>
-</SectionScreen>
+<Layout>
+    <HeroSection />
 
-<SectionScreen
-    title="Chat input"
-    description="Basic chat input component for interacting with chatboot"
-    code={""}
->
-    <LLMChat client:only="react" />
-</SectionScreen>
-
-<SectionScreen
-    title="Button component"
-    description="Basic experimentation of working with toast components"
-    code={""}
->
-    <Button>Click me</Button>
-</SectionScreen>
-<!-- <SectionScreen
-    title="
-    Toast
-    component"
-    description="Basic experimentation of working with toast components"
-    code={`<Toast
-    title="Toast component"
-    description="Basic experimentation of working with toast components
-    />`}
->
-    <h1>Toast</h1>
-</SectionScreen> -->
-<SectionScreen
-    title="Card componnet"
-    description="Experimentation fo toast component with different animation styles. This is mostly created with vanilla CSS and javascript"
-    code={`<Toast
-    title="Toast component"
-    description="Basic experimentation of working with toast components
-    />`}
->
-    <ToastComponent />
-</SectionScreen>
-
-<SectionScreen
-    title="Card inverted"
-    description="Basic css inverted example"
-    code={`<Card title="Card inverted" description="Basic css inverted example" />`}
->
-    <CardHover>
-        <div class="positioning-context">
-            <div class="parent card-black">
-                <div class="card-chip"></div>
-                <div class="card-number">3782 8224 6310 004</div>
-                <div class="card-holder">Asta UI</div>
-                <div class="card-brand">AMEX</div>
+    <div class="flex flex-col items-center justify-center p-8">
+        <SectionScreen
+            title="Data section"
+            description={`
+    Just a basic component for marketing purposes for hidden/encrpyted data.
+    Try out motion with svg animation and canvas for rendering the custom numbers behind the screen.
+    The eye is interactive try hoverin over the component
+    `}
+            code={`
+      <GridMatrixPresentation />
+    `}
+        >
+            <div class="w-128 h-128 flex">
+                <GridMatrixPresentation client:only="react" />
             </div>
-        </div>
-    </CardHover>
-    <!-- <style>
-    body {
-        font-family: "Inter Variable", sans-serif;
-    }
-</style> -->
-</SectionScreen>
+        </SectionScreen>
+
+        <SectionScreen
+            title="Sign document"
+            description={`
+      This was inspired by Nitish Khagwal. Wanted to reinplement it with react and added
+      the neat feature with showing the signing in button.
+
+      [Twitter post](https://x.com/nitishkmrk/status/1944647046301921297)
+
+    `}
+            code={`
+      <SignCard />
+    `}
+        >
+            <div>
+                <SignCard client:only="react" />
+            </div>
+        </SectionScreen>
+
+        <SectionScreen
+            title="Jojo Land"
+            description={`This was just made bacause i like the colors from jojo part 9.
+    Learned show to use clip-path and mix-blend-mode. Love the future for fast image transformation`}
+            code={""}
+        >
+            <div class="relative">
+                <JoJoLand
+                    image="https://www.pngkey.com/maxpic/u2q8a9i1q8r5o0u2/"
+                    client:only="react"
+                >
+                    <JojoItems client:only="react" />
+                </JoJoLand>
+            </div>
+        </SectionScreen>
+
+        <SectionScreen
+            title="Hover dropdown"
+            description={`
+      Just trying to implement  the hover interaction from amazon.
+      For better interaction with the safe space for mouse inteaction before accessing the dropdown when moving the mouse`}
+            code={""}
+        >
+            <div class="relative">
+                <HoverDropdownSection client:only="react" />
+            </div>
+        </SectionScreen>
+
+        <SectionScreen
+            title="Chat input"
+            description={`
+    My chat interface implementation for my Ai chat app in a different app. The LLM is disabled, don't want to
+    pay to much to my llm overlords 😅`}
+            code={""}
+        >
+            <LLMChat client:only="react" />
+        </SectionScreen>
+
+        <SectionScreen
+            title="Button component"
+            description={`Experimenting with different shading on buttons for making it more reaslistic with different shadow properties `}
+            code={""}
+        >
+            <Button>Click me</Button>
+        </SectionScreen>
+
+        <SectionScreen
+            title="Card componnet"
+            description="Experimentation fo toast component with different animation styles. This is mostly created with vanilla CSS and javascript"
+            code={`<Toast
+    title="Toast component"
+    description="Basic experimentation of working with toast components
+    />`}
+        >
+            <ToastComponent />
+        </SectionScreen>
+
+        <SectionScreen
+            title="Card inverted"
+            description={`Animation for bank companies. Trying to recreate a leather texture on the card`}
+            code={`<Card title="Card inverted" description="Basic css inverted example" />`}
+        >
+            <CardHover>
+                <div class="positioning-context">
+                    <div class="parent card-black">
+                        <div class="card-chip"></div>
+                        <div class="card-number">3782 8224 6310 004</div>
+                        <div class="card-holder">Asta UI</div>
+                        <div class="card-brand">AMEX</div>
+                    </div>
+                </div>
+            </CardHover>
+        </SectionScreen>
+    </div>
+</Layout>
 
 <style>
     .positioning-context {

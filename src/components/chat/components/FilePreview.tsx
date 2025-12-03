@@ -30,30 +30,6 @@ export function FilePreview({
           }}
           className="flex flex-col justify-center items-center p-2 bg-gray-50 rounded-lg shadow-xs relative h-20"
         >
-          {file.type.startsWith("image/") ? (
-            <img
-              src={URL.createObjectURL(file)}
-              alt={file.name}
-              className="h-12 w-12 object-cover rounded-md mb-1"
-            />
-          ) : (
-            <div className="h-8 w-8 bg-gray-200 rounded-md flex items-center justify-center mb-1">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-gray-500"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                />
-              </svg>
-            </div>
-          )}
           <span className="text-xs text-gray-600 truncate w-20 text-center">
             {file.name}
           </span>

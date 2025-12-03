@@ -1,19 +1,9 @@
-## Lab 1: Introduction to Python
+# Repository with ui exploaration
 
 
+Here are some components in vanilla JavaScript and React.
 
-https://x.com/jakubkrehel/status/1980321002124136681
-
-
-<!-- Add secret info example-->
+Mostyl there are some experimentation with css properties and motion frameworks.
 
 
-Ideas
-
-code editor interface
-
-
-## Resources
-
-- [Leather design](https://blog.tannernielsen.com/2019/01/25/creating-an-engraved-leather-effect-with-css)
-https://www.uilabs.dev/
+Components are stored in the `src/components` directory.

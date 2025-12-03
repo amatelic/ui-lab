@@ -14,6 +14,8 @@ import remarkMath from "remark-math";
 import rehypeHighlight from "rehype-highlight";
 // import "katex/dist/katex.min.css"; // Import KaTeX CSS
 import "highlight.js/styles/github.css";
+import { MapMessage } from "./messageType/MapMessage";
+import AudioVisualizer from "./messageType/AudioMessage";
 
 function MessageWrapper({
   message,
@@ -146,7 +148,8 @@ export const ChatSwitch = ({
         <img src={message.content} alt="Chat media" className="message image" />
       );
     case "audio":
-      return <audio src={message.content} controls className="message audio" />;
+      return <AudioVisualizer audioSrc={message.content} />;
+
     case "canvas":
       return (
         <canvas
@@ -168,20 +171,7 @@ export const ChatSwitch = ({
         />
       );
     case "map":
-      return (
-        <div className="border-s-black border-2 message-map relative w-64 h-64 overflow-hidden">
-          <MapContainer
-            center={[51.505, -0.09]}
-            zoom={13}
-            style={{ height: 256, width: 256 }}
-          >
-            <TileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            />
-          </MapContainer>
-        </div>
-      );
+      return <MapMessage message={message.content} />;
     default:
       return <div>Unsupported message type</div>;
   }

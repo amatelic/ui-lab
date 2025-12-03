@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="180" viewBox="0 0 480 180" role="img" aria-labelledby="title desc">
+  <title id="title">Smooth rounded pencil</title>
+  <desc id="desc">A yellow pencil with a pink eraser and silver ferrule, drawn with soft rounded shapes and subtle highlights.</desc>
+
+  <defs>
+    <linearGradient id="gBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFE082"/>
+      <stop offset="45%" stop-color="#FFC107"/>
+      <stop offset="100%" stop-color="#FFA000"/>
+    </linearGradient>
+
+    <linearGradient id="gBodyShine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.50"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="gEraser" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8BBD0"/>
+      <stop offset="100%" stop-color="#EC407A"/>
+    </linearGradient>
+
+    <linearGradient id="gFerrule" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E0E0E0"/>
+      <stop offset="50%" stop-color="#BDBDBD"/>
+      <stop offset="100%" stop-color="#E0E0E0"/>
+    </linearGradient>
+
+    <linearGradient id="gWood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E6B17E"/>
+      <stop offset="100%" stop-color="#C69568"/>
+    </linearGradient>
+
+    <linearGradient id="gGraphite" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#666666"/>
+      <stop offset="100%" stop-color="#2E2E2E"/>
+    </linearGradient>
+
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.2"/>
+    </filter>
+
+    <path id="bodyPath" d="M 210 50 H 420 a 20 20 0 0 1 20 20 v 20 a 20 20 0 0 1 -20 20 H 210 a 20 20 0 0 1 -20 -20 v -20 a 20 20 0 0 1 20 -20 Z" />
+    <clipPath id="clipBody">
+      <use href="#bodyPath"/>
+    </clipPath>
+  </defs>
+
+  <g filter="url(#softShadow)">
+    <rect x="110" y="50" width="60" height="60" rx="14" fill="url(#gEraser)"/>
+
+    <rect x="170" y="50" width="40" height="60" rx="12" fill="url(#gFerrule)"/>
+    <g stroke="#9E9E9E" stroke-width="2" opacity="0.45">
+      <line x1="178" y1="54" x2="178" y2="106"/>
+      <line x1="186" y1="54" x2="186" y2="106"/>
+      <line x1="194" y1="54" x2="194" y2="106"/>
+      <line x1="202" y1="54" x2="202" y2="106"/>
+    </g>
+
+    <use href="#bodyPath" fill="url(#gBody)" stroke="#B28704" stroke-width="1.25" />
+
+    <g clip-path="url(#clipBody)">
+      <rect x="120" y="32" width="300" height="28" rx="14" fill="url(#gBodyShine)"/>
+    </g>
+
+    <path d="M 420 50 L 452 50 L 420 90 Z" fill="url(#gWood)" stroke="#8C6B3E" stroke-width="1" />
+    <path d="M 452 50 L 468 65 L 452 80 Z" fill="url(#gGraphite)" stroke="#1F1F1F" stroke-width="1" />
+    <path d="M 452 58 L 466 65 L 452 72 Z" fill="#FFFFFF" opacity="0.15"/>
+  </g>
+</svg>
