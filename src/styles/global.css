@@ -374,3 +374,7 @@ section {
     filter: blur(10px);
     mix-blend-mode: overlay;
 }
+
+.icon-map-container * {
+    pointer-events: all;
+}

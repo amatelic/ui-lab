@@ -2,6 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import { MediaContainer } from "../components/presentation/MediaContainer";
 import { ChatSwitch } from "../components/chat/components/ChatSwitch";
+import { MapMessage } from "../components/chat/components/messageType/MapMessage";
+import { Test } from "./Test";
 
 const data = JSON.stringify({
     type: "FeatureCollection",
@@ -131,21 +133,37 @@ const data = JSON.stringify({
 ---
 
 <Layout>
-    <MediaContainer client:only="react" />
-
-    <div class="flex justify-center w-full">
-        <!-- <HeroSection /> -->
+    <div class="flex justify-center w-full p-8">
+        <!-- <div class="w-screen h-screen">
+            <Test client:only="react" />
+        </div> -->
         <ChatSwitch
             client:only="react"
             message={{
                 id: "23312123",
-                content: "./paza-moduless.mp3",
+                content: data,
                 files: [],
                 avatar: "bla",
                 role: "assistant",
-                type: "audio",
+                type: "map",
                 timestamp: new Date(),
             }}
         />
     </div>
+    <!-- <MediaContainer client:only="react" />
+
+    <div class="flex justify-center w-full">
+        <!-- <HeroSection /> -->
+    <!-- <ChatSwitch
+        client:only="react"
+        message={{
+            id: "23312123",
+            content: "./paza-moduless.mp3",
+            files: [],
+            avatar: "bla",
+            role: "assistant",
+            type: "audio",
+            timestamp: new Date(),
+        }}
+    /> -->
 </Layout>

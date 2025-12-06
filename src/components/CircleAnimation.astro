@@ -541,67 +541,67 @@ const { speed = 0.4, amplitude = 0.15, frequency = 2.0 } = Astro.props;
             });
         }
 
-        initAudio() {
-            try {
-                this.audioContext = new (
-                    window.AudioContext || window.webkitAudioContext
-                )();
+        // initAudio() {
+        //     try {
+        //         this.audioContext = new (
+        //             window.AudioContext || window.webkitAudioContext
+        //         )();
 
-                // Create master gain node
-                this.masterGain = this.audioContext.createGain();
-                this.masterGain.connect(this.audioContext.destination);
-                this.masterGain.gain.setValueAtTime(
-                    0.3,
-                    this.audioContext.currentTime,
-                );
+        //         // Create master gain node
+        //         this.masterGain = this.audioContext.createGain();
+        //         this.masterGain.connect(this.audioContext.destination);
+        //         this.masterGain.gain.setValueAtTime(
+        //             0.3,
+        //             this.audioContext.curfentTime,
+        //         );
 
-                // Create main wave oscillator
-                this.waveOscillator = this.audioContext.createOscillator();
-                this.waveOscillator.type = "sine";
-                this.waveOscillator.frequency.setValueAtTime(
-                    this.centerFrequency,
-                    this.audioContext.currentTime,
-                );
+        //         // Create main wave oscillator
+        //         this.waveOscillator = this.audioContext.createOscillator();
+        //         this.waveOscillator.type = "sine";
+        //         this.waveOscillator.frequency.setValueAtTime(
+        //             this.centerFrequency,
+        //             this.audioContext.currentTime,
+        //         );
 
-                this.waveGain = this.audioContext.createGain();
-                this.waveGain.gain.setValueAtTime(
-                    0,
-                    this.audioContext.currentTime,
-                );
+        //         this.waveGain = this.audioContext.createGain();
+        //         this.waveGain.gain.setValueAtTime(
+        //             0,
+        //             this.audioContext.currentTime,
+        //         );
 
-                this.waveOscillator.connect(this.waveGain);
-                this.waveGain.connect(this.masterGain);
-                this.waveOscillator.start();
+        //         this.waveOscillator.connect(this.waveGain);
+        //         this.waveGain.connect(this.masterGain);
+        //         this.waveOscillator.start();
 
-                // Create ripple oscillators for spatial effect
-                for (let i = 0; i < 3; i++) {
-                    const rippleOsc = this.audioContext.createOscillator();
-                    rippleOsc.type =
-                        i === 0 ? "sine" : i === 1 ? "triangle" : "sawtooth";
-                    rippleOsc.frequency.setValueAtTime(
-                        this.centerFrequency * (1 + i * 0.5),
-                        this.audioContext.currentTime,
-                    );
+        //         // Create ripple oscillators for spatial effect
+        //         for (let i = 0; i < 3; i++) {
+        //             const rippleOsc = this.audioContext.createOscillator();
+        //             rippleOsc.type =
+        //                 i === 0 ? "sine" : i === 1 ? "triangle" : "sawtooth";
+        //             rippleOsc.frequency.setValueAtTime(
+        //                 this.centerFrequency * (1 + i * 0.5),
+        //                 this.audioContext.currentTime,
+        //             );
 
-                    const rippleGain = this.audioContext.createGain();
-                    rippleGain.gain.setValueAtTime(
-                        0,
-                        this.audioContext.currentTime,
-                    );
+        //             const rippleGain = this.audioContext.createGain();
+        //             rippleGain.gain.setValueAtTime(
+        //                 0,
+        //                 this.audioContext.currentTime,
+        //             );
 
-                    rippleOsc.connect(rippleGain);
-                    rippleGain.connect(this.masterGain);
-                    rippleOsc.start();
+        //             rippleOsc.connect(rippleGain);
+        //             rippleGain.connect(this.masterGain);
+        //             rippleOsc.start();
 
-                    this.rippleOscillators.push(rippleOsc);
-                    this.rippleGains.push(rippleGain);
-                }
+        //             this.rippleOscillators.push(rippleOsc);
+        //             this.rippleGains.push(rippleGain);
+        //         }
 
-                this.audioInitialized = true;
-            } catch (error) {
-                console.error("Failed to initialize audio:", error);
-            }
-        }
+        //         this.audioInitialized = true;
+        //     } catch (error) {
+        //         console.error("Failed to initialize audio:", error);
+        //     }
+        // }
 
         handleResize() {
             window.addEventListener("resize", () => {

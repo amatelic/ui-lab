@@ -92,6 +92,9 @@ dependencies:
   remark-math:
     specifier: ^6.0.0
     version: 6.0.0
+  remend:
+    specifier: ^1.0.1
+    version: 1.0.1
   tailwindcss:
     specifier: ^4.1.14
     version: 4.1.14
@@ -6680,6 +6683,10 @@ packages:
       '@types/mdast': 4.0.4
       mdast-util-to-markdown: 2.1.2
       unified: 11.0.5
+    dev: false
+
+  /remend@1.0.1:
+    resolution: {integrity: sha512-152puVH0qMoRJQFnaMG+rVDdf01Jq/CaED+MBuXExurJgdbkLp0c3TIe4R12o28Klx8uyGsjvFNG05aFG69G9w==}
     dev: false
 
   /resolve-from@4.0.0:

@@ -16,6 +16,7 @@ import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github.css";
 import { MapMessage } from "./messageType/MapMessage";
 import AudioVisualizer from "./messageType/AudioMessage";
+import remend from "remend";
 
 function MessageWrapper({
   message,
@@ -32,7 +33,7 @@ function MessageWrapper({
         remarkPlugins={[remarkMath]}
         rehypePlugins={[rehypeHighlight, rehypeKatex]}
       >
-        {message.content}
+        {remend(message.content)}
       </Markdown>
     </div>
   );
