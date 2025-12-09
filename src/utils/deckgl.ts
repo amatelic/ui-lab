@@ -117,9 +117,7 @@ export class DeckLayer extends L.Layer {
     return (this as any)._zoomAnimated;
   }
 
-  #onClick(info: any, event: any) {
-    console.log("[TEST]", info, event);
-  }
+  #onClick(info: any, event: any) {}
 
   #update(): void {
     if (!this._container || !this._deck) {

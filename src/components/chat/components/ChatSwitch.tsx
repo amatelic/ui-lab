@@ -172,7 +172,11 @@ export const ChatSwitch = ({
         />
       );
     case "map":
-      return <MapMessage message={message.content} />;
+      return (
+        <div className="flex justify-center">
+          <MapMessage message={message.content} />
+        </div>
+      );
     default:
       return <div>Unsupported message type</div>;
   }

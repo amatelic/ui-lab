@@ -22,7 +22,6 @@ export const MarpMarkdown = ({ markdown }: { markdown: string }) => {
     const { html, css } = marp.render(metadata || "# Hello, marp-core!");
     setSlideHtml(html);
     setSlideCss(css);
-    console.log("data", markdown, html);
   }, [markdown]);
 
   return (

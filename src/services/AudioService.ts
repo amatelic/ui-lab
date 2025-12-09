@@ -37,7 +37,6 @@ export class AudioRecordingService {
   async stop(): Promise<string> {
     return new Promise<string>((resolve) => {
       this.recognition.onresult = (event) => {
-        console.log("[TEST] audio", event);
         this.transcribedSpeech += event.results[0][0].transcript.toLowerCase();
         // this.recorder.stream.getTracks().forEach((track) => track.stop());
         // this.recognition.removeEventListener("result");

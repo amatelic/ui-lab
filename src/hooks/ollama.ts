@@ -45,7 +45,28 @@ export const useOllama = () => {
         ];
       });
 
+      if (text.includes("@geojson")) {
+        const geojson = await fetch("http://localhost:5173/api/map/resource", {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "POST",
+          body: JSON.stringify({
+            type: text,
+          }),
+        });
+        const payload = await geojson.json();
+        setMessages((messages) => {
+          if (messages[size]) {
+            messages[size].content = payload;
+            return [...messages];
+          }
+        });
+        return;
+      }
+
       const response = await instance.prompt(text).call();
+
       setMessages((messages) => {
         if (messages[size]) {
           messages[size].content = "";

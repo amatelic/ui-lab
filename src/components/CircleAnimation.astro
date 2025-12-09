@@ -790,8 +790,6 @@ const { speed = 0.4, amplitude = 0.15, frequency = 2.0 } = Astro.props;
                 return;
             }
 
-            console.log("[test]");
-
             const elapsedTime =
                 (time - this.startTime) * 0.001 * this.animationSpeed;
             const centerX = this.canvasSize.width / 2;
@@ -906,6 +904,5 @@ const { speed = 0.4, amplitude = 0.15, frequency = 2.0 } = Astro.props;
         });
 
         waveAnimation.start();
-        console.log("is running");
     });
 </script>

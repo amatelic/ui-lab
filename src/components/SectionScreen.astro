@@ -1,6 +1,6 @@
 ---
 // src/components/CodeExample.astro
-// import { Markdown } from "astro/components";
+import { Markdown } from "astro-remote";
 
 interface Props {
     title: string;
@@ -26,7 +26,7 @@ const { title, description, code } = Astro.props;
 
         <div class="code-block">
             <slot name="code">
-                <pre><code>{code}</code></pre>
+                <Markdown content={code} />
             </slot>
         </div>
     </div>

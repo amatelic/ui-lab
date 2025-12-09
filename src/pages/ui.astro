@@ -12,6 +12,7 @@ import { SignCard } from "../components/chat/components/SignCard";
 import { JojoItems } from "../components/chat/components/JojoItems";
 import HeroSection from "../components/presentation/HeroSection.astro";
 import Layout from "../layouts/Layout.astro";
+import { MapContainer } from "../components/presentation/MapContainer";
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
@@ -56,27 +57,11 @@ import Layout from "../layouts/Layout.astro";
         </SectionScreen>
 
         <SectionScreen
-            title="Jojo Land"
-            description={`This was just made bacause i like the colors from jojo part 9.
-    Learned show to use clip-path and mix-blend-mode. Love the future for fast image transformation`}
-            code={""}
-        >
-            <div class="relative">
-                <JoJoLand
-                    image="https://www.pngkey.com/maxpic/u2q8a9i1q8r5o0u2/"
-                    client:only="react"
-                >
-                    <JojoItems client:only="react" />
-                </JoJoLand>
-            </div>
-        </SectionScreen>
-
-        <SectionScreen
             title="Hover dropdown"
             description={`
       Just trying to implement  the hover interaction from amazon.
       For better interaction with the safe space for mouse inteaction before accessing the dropdown when moving the mouse`}
-            code={""}
+            code={"<HoverDropdownSection />"}
         >
             <div class="relative">
                 <HoverDropdownSection client:only="react" />
@@ -84,11 +69,26 @@ import Layout from "../layouts/Layout.astro";
         </SectionScreen>
 
         <SectionScreen
+            title="Map component"
+            description={`Experimentingn with different ways to disaply map on ui with funcionality`}
+            code={`
+            <MapMessage
+              message={JSON.stringify({
+                type: "FeatureCollection",
+                features: []
+              })}
+            />
+    `}
+        >
+            <MapContainer client:only="react" />
+        </SectionScreen>
+
+        <SectionScreen
             title="Chat input"
             description={`
     My chat interface implementation for my Ai chat app in a different app. The LLM is disabled, don't want to
     pay to much to my llm overlords 😅`}
-            code={""}
+            code={"<LLMChat />"}
         >
             <LLMChat client:only="react" />
         </SectionScreen>
@@ -96,7 +96,7 @@ import Layout from "../layouts/Layout.astro";
         <SectionScreen
             title="Button component"
             description={`Experimenting with different shading on buttons for making it more reaslistic with different shadow properties `}
-            code={""}
+            code={"<Button>Click me</Button>"}
         >
             <Button>Click me</Button>
         </SectionScreen>
@@ -127,6 +127,28 @@ import Layout from "../layouts/Layout.astro";
                     </div>
                 </div>
             </CardHover>
+        </SectionScreen>
+        <SectionScreen
+            title="Jojo Land"
+            description={`This was just made bacause i like the colors from jojo part 9.
+    Learned show to use clip-path and mix-blend-mode. Love the future for fast image transformation`}
+            code={`
+            <JoJoLand
+                image="https://www.pngkey.com/maxpic/u2q8a9i1q8r5o0u2/"
+                client:only="react"
+            >
+                <JojoItems client:only="react" />
+            </JoJoLand>
+          `}
+        >
+            <div class="relative">
+                <JoJoLand
+                    image="https://www.pngkey.com/maxpic/u2q8a9i1q8r5o0u2/"
+                    client:only="react"
+                >
+                    <JojoItems client:only="react" />
+                </JoJoLand>
+            </div>
         </SectionScreen>
     </div>
 </Layout>

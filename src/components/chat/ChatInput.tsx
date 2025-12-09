@@ -48,10 +48,6 @@ const ChatInput = ({
     setFiles((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const updateFilePreview = () => {
-    // Preview is handled in the render below
-  };
-
   const toggleRecording = async () => {
     if (isListening) {
       stopListening();
@@ -73,8 +69,15 @@ const ChatInput = ({
 
   useEffect(() => {
     if (messageInputRef.current) {
-      messageInputRef.current.style.height = "auto";
-      messageInputRef.current.style.height = `${Math.min(messageInputRef.current.scrollHeight, 120)}px`;
+      // second option is used for cases when animating the input
+      if (
+        !messageInputRef.current.scrollHeight ||
+        !messageInputRef.current.innerText
+      ) {
+        messageInputRef.current.style.height = "auto";
+      } else {
+        messageInputRef.current.style.height = `${Math.min(messageInputRef.current.scrollHeight, 120)}px`;
+      }
     }
   }, [message]);
 
@@ -86,7 +89,7 @@ const ChatInput = ({
   };
 
   return (
-    <div className="chat-container w-full max-w-2xl mx-auto  rounded-xl shadow-sm border bg-white border-gray-200">
+    <div className="chat-container w-full max-w-2xl mx-auto  rounded-3xl shadow-sm border bg-white border-gray-200">
       <div className="flex flex-col items-center">
         <AnimatePresence>
           <motion.div
@@ -130,7 +133,11 @@ const ChatInput = ({
               }}
             >
               {files.length > 0 && (
-                <FilePreview files={files} removeOnIndex={removeOnIndex} />
+                <FilePreview
+                  showDeleteButton={true}
+                  files={files}
+                  removeOnIndex={removeOnIndex}
+                />
               )}
             </motion.div>
           </motion.div>
@@ -144,7 +151,11 @@ const ChatInput = ({
               className="message-input flex-1 px-4 py-2.5 text-gray-700 bg-gray-50 border border-gray-300 rounded-md focus:outline-none max-h-[120px] empty:before:content-[attr(data-placeholder)] empty:before:text-gray-400 empty:before:pointer-events-none overflow-y-auto resize-none"
               data-placeholder="Ask question"
               style={{ minHeight: "46px" }}
-              onInput={(e) => setMessage(e.currentTarget.textContent || "")}
+              onInput={(e) => {
+                if (e.currentTarget.textContent) {
+                  setMessage(e.currentTarget.textContent);
+                }
+              }}
               onKeyDown={handleKeyDown}
             />
           </div>

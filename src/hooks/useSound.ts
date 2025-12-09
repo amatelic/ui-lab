@@ -33,7 +33,6 @@ export const useWithSound = (audioSource: string): UseWithSoundReturn => {
 
     audio.addEventListener("pause", onPause);
     audio.addEventListener("ended", onEnded);
-    console.log("fafssadsd");
 
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);

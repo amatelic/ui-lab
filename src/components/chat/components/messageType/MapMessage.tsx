@@ -4,13 +4,14 @@ import {
   MotionConfig,
   type MotionProps,
 } from "motion/react";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import { ReactDeckRender } from "../../../ReactDeckRender";
 import { set } from "astro/zod";
 import { MapIcon } from "../map/MapIcon";
 import { ErrorBoundary } from "../ErrorHandling";
 import ChatInput from "../../ChatInput";
+import { useScreen } from "usehooks-ts";
 
 const INITIAL_VIEW_STATE = {
   longitude: -122.41669,
@@ -20,7 +21,6 @@ const INITIAL_VIEW_STATE = {
 
 const options: MotionProps["variants"] = {
   "partial-inital": (isFullScreen: boolean) => {
-    console.log("test", isFullScreen);
     return {
       opacity: 0,
       scale: 0.5,
@@ -33,7 +33,6 @@ const options: MotionProps["variants"] = {
     // width: 12,
   },
   "partial-exit": (isFullScreen: boolean) => {
-    console.log(isFullScreen);
     return {
       opacity: 0,
       scale: 0,
@@ -69,10 +68,17 @@ type DataType = {
   to: [longitude: number, latitude: number];
 };
 
-export const MapMessage = ({ message }: { message: string }) => {
+export const MapMessage = ({
+  message,
+  onMessage,
+}: {
+  message: string;
+  onMessage: (message: string, files: File[]) => void;
+}) => {
   const [type, setMapState] = useState<"partial" | "full" | "idle">("idle");
   const [isFullScreen, setIsFullScreen] = useState(false);
   const chatInputRef = useRef<HTMLDivElement>(null);
+  const screen = useScreen();
 
   const toggleScreen = (isFullScreen: boolean) => {
     setMapState(isFullScreen ? "full" : "partial");
@@ -84,6 +90,18 @@ export const MapMessage = ({ message }: { message: string }) => {
       return !s;
     });
   };
+
+  useEffect(() => {
+    const body = document.querySelector("body");
+    if (body && type === "full") {
+      body.classList.add("overflow-hidden");
+    }
+    return () => {
+      if (body) {
+        body.classList.remove("overflow-hidden");
+      }
+    };
+  }, [type]);
 
   const payload = useMemo(() => {
     try {
@@ -171,26 +189,32 @@ export const MapMessage = ({ message }: { message: string }) => {
               <CardContainer
                 key={"full"}
                 payload={payload}
-                height={window.innerHeight}
-                width={window.innerWidth}
+                height={screen.height}
+                width={screen.width}
                 type={"full"}
                 className={" w-screen h-screen fixed top-0 left-0"}
                 toggleFullScreen={onFullScreen}
                 close={() => setMapState("idle")}
               >
                 <motion.div
+                  initial={{ scale: 0.2, filter: "blur(5px)" }}
+                  animate={{ scale: 1, filter: "blur(0px)" }}
+                  exit={{ scale: 0.2, filter: "blur(5px)" }}
+                  transition={{
+                    type: "spring",
+                    duration: 0.3,
+                    delay: 0.1,
+                    damping: 50,
+                    stiffness: 350,
+                    mass: 5,
+                  }}
                   className={
-                    "absolute bottom-2 left-0 right-0  w-full flex justify-center"
+                    "absolute bottom-2 left-0 right-0  w-full flex justify-center z-[1001]"
                   }
                   layoutId="direction-container"
                 >
                   <div className="icon-map-container w-128 pointer-events-auto">
-                    <ChatInput
-                      ref={chatInputRef}
-                      onMessage={(message: string, files: File[] = []) => {
-                        console.log(message);
-                      }}
-                    />
+                    <ChatInput onMessage={onMessage} />
                   </div>
                 </motion.div>
               </CardContainer>
@@ -219,14 +243,14 @@ function CardContainer({
       initial={`${type}-initial`}
       animate={`${type}-animate`}
       exit={`${type}-animate`}
-      className={className}
+      className={`${className} z-[100]`}
     >
       <motion.div
         layoutId="map-container"
-        className="relative rounded-2xl w-full h-full"
+        className="relative rounded-2xl w-full h-full bg-white"
       >
         <motion.div
-          className="w-full h-full rounded-2xl overflow-hidden"
+          className={`w-full h-full ${type === "partial" ? "rounded-2xl" : ""} overflow-hidden`}
           initial={{
             height: 0,
             width: 0,
@@ -255,7 +279,7 @@ function CardContainer({
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
-            <ReactDeckRender />
+            {payload.data && <ReactDeckRender payload={payload} />}
           </MapContainer>
           <div className="absolute bottom-0 left-0 right-0 z-[1000] w-full h-full pointer-events-none">
             {children}
@@ -298,6 +322,7 @@ function CardContainer({
         <motion.button
           layout
           initial={{
+            scale: 0.1,
             filter: "blur(5px)",
             background: "#ff3d3d",
           }}

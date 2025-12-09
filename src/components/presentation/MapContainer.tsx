@@ -1,0 +1,152 @@
+import { useState } from "react";
+import { MapMessage } from "../chat/components/messageType/MapMessage";
+
+const data = JSON.stringify({
+  type: "FeatureCollection",
+  features: [
+    {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [151.63929596112354, 42.61726846353744],
+      },
+      properties: {
+        id: 0,
+        name: "Point 0",
+        value: 97,
+      },
+    },
+    {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [-127.23298115297146, -53.393348806846674],
+      },
+      properties: {
+        id: 1,
+        name: "Point 1",
+        value: 66,
+      },
+    },
+    {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [115.68043058482363, 58.011725868352414],
+      },
+      properties: {
+        id: 2,
+        name: "Point 2",
+        value: 84,
+      },
+    },
+    {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [-11.523736319549442, 0.7759380137467957],
+      },
+      properties: {
+        id: 3,
+        name: "Point 3",
+        value: 92,
+      },
+    },
+    {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [-33.80371226409926, 63.632894062752484],
+      },
+      properties: {
+        id: 4,
+        name: "Point 4",
+        value: 67,
+      },
+    },
+    {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [92.9278050454896, 53.28451419193354],
+      },
+      properties: {
+        id: 5,
+        name: "Point 5",
+        value: 82,
+      },
+    },
+    {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [27.76730190103092, 30.90950818659084],
+      },
+      properties: {
+        id: 6,
+        name: "Point 6",
+        value: 14,
+      },
+    },
+    {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [-158.0079981188116, -69.68523517184924],
+      },
+      properties: {
+        id: 7,
+        name: "Point 7",
+        value: 24,
+      },
+    },
+    {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [-124.69381701590515, -88.91318771276151],
+      },
+      properties: {
+        id: 8,
+        name: "Point 8",
+        value: 10,
+      },
+    },
+    {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [-94.9946500759592, -19.57999653205526],
+      },
+      properties: {
+        id: 9,
+        name: "Point 9",
+        value: 35,
+      },
+    },
+  ],
+});
+
+export const MapContainer = () => {
+  const [message, setMessage] = useState(data);
+  const onMessage = async (text: string) => {
+    try {
+      if (text.includes("@geojson")) {
+        setMessage(
+          JSON.stringify({
+            url: "http://localhost:5173/map/show",
+          }),
+        );
+      }
+    } catch (error) {
+      alert("Sorry there was an error");
+    }
+  };
+  return (
+    <div className="w-full h-full relative">
+      <div className="flex justify-center">
+        <MapMessage message={message} onMessage={onMessage} />
+      </div>
+    </div>
+  );
+};

@@ -17,7 +17,7 @@ export const LLMChat = () => {
         hasMore={false}
       />
       <div className="h-40"></div>
-      <div className="absolute bottom-0 left-0 right-0 px-4 pb-4">
+      <div className="absolute bottom-0 left-0 right-0 px-4 pb-4 flex justify-center">
         <ChatInput
           onMessage={(message: string, files: File[] = []) => {
             addMessage(message, files);
