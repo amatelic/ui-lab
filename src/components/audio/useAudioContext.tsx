@@ -7,6 +7,9 @@ import {
   type HtmlHTMLAttributes,
 } from "react";
 
+// TODO: implement the the source for every components
+// add suport for muting all
+// find a way how to add audio to only selected items
 interface AudioContextProps {
   defaults: {
     volume: number;

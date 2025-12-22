@@ -3,12 +3,19 @@ import { MapContainer } from "../components/presentation/MapContainer";
 import { AudioExample } from "../components/presentation/AudioExample";
 import Layout from "../layouts/Layout.astro";
 import { ErrorBoundary } from "../components/chat/components/ErrorHandling";
+import { MotionClock } from "../components/chat/components/clock/MotionClock";
 ---
 
 <Layout>
-    <div class="flex justify-center w-full p-8">
+    <div class="flex flex-col justify-center w-full p-8">
         <ErrorBoundary>
-            <AudioExample client:only="react" />
+            <div class="w-full h-full p-8">
+                <MotionClock client:only="react" />
+            </div>
+            <!-- <div class="w-full h-full">
+                <MapContainer client:only="react" />
+            </div> -->
+            <!-- <AudioExample client:only="react" /> -->
         </ErrorBoundary>
         <!-- <MapContainer client:only="react" /> -->
         <!-- <div class="w-screen h-screen">
