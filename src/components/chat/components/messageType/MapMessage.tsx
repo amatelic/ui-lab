@@ -43,7 +43,6 @@ const options: MotionProps["variants"] = {
     scale: 0.5,
   },
   "full-exit": (isFullScreen: boolean) => {
-    console.log(isFullScreen);
     return {
       opacity: 0,
       scale: 0,
