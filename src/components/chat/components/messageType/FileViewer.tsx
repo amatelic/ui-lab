@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
+import { getFileType, type SupportedFileType } from "../../../../utils/web";
 export interface FileViewerProps {
   files: File[];
   initialIndex?: number;
@@ -13,8 +14,6 @@ export interface FileViewerProps {
   minZoom?: number;
   onFileChange?: (file: File, index: number) => void;
 }
-
-export type SupportedFileType = "image" | "pdf" | "text" | "unsupported";
 
 // Configure PDF.js worker
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
@@ -39,25 +38,6 @@ const FileViewer: React.FC<FileViewerProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
 
   const currentFile: File | undefined = files[0];
-
-  const getFileType = (file: File): SupportedFileType => {
-    if (file.type.startsWith("image/")) return "image";
-    if (file.type === "application/pdf") return "pdf";
-    if (
-      file.type.startsWith("text/") ||
-      file.name.endsWith(".txt") ||
-      file.name.endsWith(".md") ||
-      file.name.endsWith(".json") ||
-      file.name.endsWith(".xml") ||
-      file.name.endsWith(".csv") ||
-      file.name.endsWith(".js") ||
-      file.name.endsWith(".ts") ||
-      file.name.endsWith(".html") ||
-      file.name.endsWith(".css")
-    )
-      return "text";
-    return "unsupported";
-  };
 
   const fileType: SupportedFileType = currentFile
     ? getFileType(currentFile)

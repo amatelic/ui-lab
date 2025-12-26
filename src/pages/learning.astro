@@ -1,19 +1,21 @@
 ---
 import { MapContainer } from "../components/presentation/MapContainer";
 import { AudioExample } from "../components/presentation/AudioExample";
+import { FilePreviewPresentation } from "../components/presentation/FilePreviewPresentation";
 import Layout from "../layouts/Layout.astro";
 import { ErrorBoundary } from "../components/chat/components/ErrorHandling";
 import { MotionClock } from "../components/chat/components/clock/MotionClock";
 import { FileExplorer } from "../components/chat/components/FileExplorer/FileExplorer";
+
+import Jojod4c from "/jojo/d4c.png";
+import JojoKillerQueen from "/jojo/killer-queen.png";
+import JojoMadeInHeaven from "/jojo/made-in-heaven.png";
 ---
 
 <Layout>
     <div class="flex flex-col justify-center w-full p-8">
         <ErrorBoundary>
-            <div class="w-full h-full p-8">
-                <FileExplorer files={[1, 2, 4]} client:only="react" />
-                <!-- <MotionClock client:only="react" /> -->
-            </div>
+            <FilePreviewPresentation client:only="react" />
             <!-- <div class="w-full h-full">
                 <MapContainer client:only="react" />
             </div> -->

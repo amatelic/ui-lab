@@ -5,6 +5,9 @@ import {
   MotionConfig,
 } from "motion/react";
 import { useEffect, useState } from "react";
+import HoverFileCard from "./PreviewCard";
+import { getFileType, getFileTypeFromUrl } from "../../../../utils/web";
+import Image from "astro/components/Image.astro";
 
 const buttonVariants = {
   initial: ({ width }: { position: number; width: number }) => ({
@@ -27,6 +30,7 @@ const buttonVariants = {
   },
 };
 
+// @TODO How do i disable the hover until the animation is completed
 const FileIcon = () => {
   return (
     <svg
@@ -46,7 +50,8 @@ const FileIcon = () => {
   );
 };
 
-export const FileExplorer = ({ files }: { files: number[] }) => {
+export const FileExplorer = ({ files }: { files: ImageMetadata[] }) => {
+  const [isAnimating, setIsAnimating] = useState(false);
   const [showMore, setShowMore] = useState(false);
   let size = 40 * files.length;
   const padding = 10;
@@ -60,6 +65,8 @@ export const FileExplorer = ({ files }: { files: number[] }) => {
     <MotionConfig transition={{ duration: duration }}>
       <motion.div
         animate={{ height: 40, width: showMore ? size + padding + icon : icon }}
+        onAnimationStart={() => setIsAnimating(true)}
+        onAnimationComplete={() => setIsAnimating(false)}
         className="relative"
         initial={false}
       >
@@ -96,30 +103,54 @@ export const FileExplorer = ({ files }: { files: number[] }) => {
                 className="flex bg-gray-200 rounded-4xl w-full px-2"
                 exit={{ opacity: 0, scale: 0.5, maxWidth: 0 }}
               >
-                {files.map((file, index) => (
-                  <motion.div
-                    layout
-                    key={`file-icon-${index}`}
-                    initial={{ opacity: 0, scale: 0.5, rotate: -180 }}
-                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                    exit={{ opacity: 0, scale: 0.5 }}
-                    transition={{
-                      type: "spring",
-                      damping: 50,
-                      stiffness: 750,
-                      bounce: 0.5,
-                      delay: 0.1 + 0.1 * index,
-                    }}
-                    className="px-2 cursor-pointer"
-                  >
-                    <FileIcon
+                {files.map((item, index) => {
+                  let type = getFileTypeFromUrl(item.src);
+
+                  console.log("TEST", type, item);
+
+                  let component = <h5>Is not supported</h5>;
+
+                  if (type === "image") {
+                    component = (
+                      <div>
+                        <img
+                          className="w-full h-full bg-cover bg-cover"
+                          src={item.src}
+                          alt="jojo"
+                        />
+                      </div>
+                    );
+                  }
+                  return (
+                    <motion.div
+                      layout
                       key={`file-icon-${index}`}
-                      onClick={() => {
-                        setShowMore(false);
+                      initial={{ opacity: 0, scale: 0.5, rotate: -180 }}
+                      animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                      exit={{ opacity: 0, scale: 0.5 }}
+                      transition={{
+                        type: "spring",
+                        damping: 50,
+                        stiffness: 750,
+                        bounce: 0.5,
+                        delay: 0.1 + 0.1 * index,
                       }}
-                    />
-                  </motion.div>
-                ))}
+                      className="px-2 cursor-pointer"
+                    >
+                      <HoverFileCard
+                        preview={component}
+                        isAnimating={isAnimating}
+                      >
+                        <FileIcon
+                          key={`file-icon-${index}`}
+                          onClick={() => {
+                            setShowMore(false);
+                          }}
+                        />
+                      </HoverFileCard>
+                    </motion.div>
+                  );
+                })}
               </motion.div>
             </motion.div>
           )}
