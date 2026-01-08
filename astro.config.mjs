@@ -6,10 +6,15 @@ import partytown from "@astrojs/partytown";
 import tailwindcss from "@tailwindcss/vite";
 import icon from "astro-icon";
 
+import netlify from "@astrojs/netlify";
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [react(), partytown(), icon()],
+
   vite: {
     plugins: [tailwindcss()],
   },
+
+  adapter: netlify(),
 });

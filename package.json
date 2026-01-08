@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@amatelic/oa": "^0.0.2",
+    "@astrojs/netlify": "^6.6.3",
     "@astrojs/partytown": "^2.1.4",
     "@astrojs/react": "^4.4.0",
     "@deck.gl/core": "^9.2.2",

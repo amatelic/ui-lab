@@ -1,11 +1,11 @@
-import { oa } from "@amatelic/oa";
+// import { oa } from "@amatelic/oa";
 import { useState } from "react";
 import type { Message } from "../types/message";
 
-const instance = await oa({
-  model: "qwen2.5-coder:7b",
-  stream: true,
-});
+// const instance = await oa({
+//   model: "qwen2.5-coder:7b",
+//   stream: true,
+// });
 
 export const useOllama = () => {
   const [messages, setMessages] = useState<Message[]>([]);
