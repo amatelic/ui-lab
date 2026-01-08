@@ -47,6 +47,7 @@ import { MapContainer } from "../components/presentation/MapContainer";
       [Twitter post](https://x.com/nitishkmrk/status/1944647046301921297)
 
     `}
+            lang="html"
             code={`
       <SignCard />
     `}
@@ -61,6 +62,7 @@ import { MapContainer } from "../components/presentation/MapContainer";
             description={`
       Just trying to implement  the hover interaction from amazon.
       For better interaction with the safe space for mouse inteaction before accessing the dropdown when moving the mouse`}
+            lang="html"
             code={`
         <HoverDropdownSection />
           `}
@@ -73,6 +75,7 @@ import { MapContainer } from "../components/presentation/MapContainer";
         <SectionScreen
             title="Map component"
             description={`Experimentingn with different ways to disaply map on ui with funcionality`}
+            lang="html"
             code={`
         <MapMessage
           message={JSON.stringify({
@@ -90,8 +93,31 @@ import { MapContainer } from "../components/presentation/MapContainer";
             description={`
     My chat interface implementation for my Ai chat app in a different app. The LLM is disabled, don't want to
     pay to much to my llm overlords 😅`}
+            lang="jsx"
             code={`
-        <LLMChat />
+    const LLMChat = () => {
+      const { messages, addMessage } = useOllama();
+      return (
+        <div className="flex flex-col w-full relative p-2">
+          <ChatList
+            messages={messages}
+            fetchMore={async () => {
+              return [];
+            }}
+            hasMore={false}
+          />
+          <div className="h-40"></div>
+          <div className="absolute">
+            <ChatInput
+              onMessage={(message, files
+            ) => {
+                addMessage(message, files);
+              }}
+            />
+          </div>
+        </div>
+      );
+    };
             `}
         >
             <LLMChat client:only="react" />

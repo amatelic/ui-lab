@@ -12,7 +12,6 @@ import Markdown from "react-markdown";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import rehypeHighlight from "rehype-highlight";
-// import "katex/dist/katex.min.css"; // Import KaTeX CSS
 import "highlight.js/styles/github.css";
 import { MapMessage } from "./messageType/MapMessage";
 import AudioVisualizer from "./messageType/AudioMessage";
