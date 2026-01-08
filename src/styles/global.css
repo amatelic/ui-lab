@@ -378,3 +378,7 @@ section {
 .icon-map-container * {
     pointer-events: all;
 }
+
+.markdown-section a {
+    text-decoration: underline;
+}

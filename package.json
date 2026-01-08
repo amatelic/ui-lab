@@ -47,6 +47,7 @@
   },
   "devDependencies": {
     "@iconify-json/mdi": "^1.2.3",
-    "@types/leaflet": "^1.9.21"
+    "@types/leaflet": "^1.9.21",
+    "shiki": "^3.21.0"
   }
 }

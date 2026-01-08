@@ -10,12 +10,16 @@ import { FileExplorer } from "../components/chat/components/FileExplorer/FileExp
 import Jojod4c from "/jojo/d4c.png";
 import JojoKillerQueen from "/jojo/killer-queen.png";
 import JojoMadeInHeaven from "/jojo/made-in-heaven.png";
+import { SignCard } from "../components/chat/components/SignCard";
 ---
 
 <Layout>
     <div class="flex flex-col justify-center w-full p-8">
         <ErrorBoundary>
-            <FilePreviewPresentation client:only="react" />
+            <div class="w-screen flex justify-center items-center pt-64">
+                <SignCard client:only="react" />
+            </div>
+            <!-- <FilePreviewPresentation client:only="react" /> -->
             <!-- <div class="w-full h-full">
                 <MapContainer client:only="react" />
             </div> -->

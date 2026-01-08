@@ -61,7 +61,9 @@ import { MapContainer } from "../components/presentation/MapContainer";
             description={`
       Just trying to implement  the hover interaction from amazon.
       For better interaction with the safe space for mouse inteaction before accessing the dropdown when moving the mouse`}
-            code={"<HoverDropdownSection />"}
+            code={`
+        <HoverDropdownSection />
+          `}
         >
             <div class="relative">
                 <HoverDropdownSection client:only="react" />
@@ -72,12 +74,12 @@ import { MapContainer } from "../components/presentation/MapContainer";
             title="Map component"
             description={`Experimentingn with different ways to disaply map on ui with funcionality`}
             code={`
-            <MapMessage
-              message={JSON.stringify({
-                type: "FeatureCollection",
-                features: []
-              })}
-            />
+        <MapMessage
+          message={JSON.stringify({
+            type: "FeatureCollection",
+            features: []
+          })}
+        />
     `}
         >
             <MapContainer client:only="react" />
@@ -88,7 +90,9 @@ import { MapContainer } from "../components/presentation/MapContainer";
             description={`
     My chat interface implementation for my Ai chat app in a different app. The LLM is disabled, don't want to
     pay to much to my llm overlords 😅`}
-            code={"<LLMChat />"}
+            code={`
+        <LLMChat />
+            `}
         >
             <LLMChat client:only="react" />
         </SectionScreen>
@@ -96,7 +100,9 @@ import { MapContainer } from "../components/presentation/MapContainer";
         <SectionScreen
             title="Button component"
             description={`Experimenting with different shading on buttons for making it more reaslistic with different shadow properties `}
-            code={"<Button>Click me</Button>"}
+            code={`
+        <Button>Click me</Button>
+            `}
         >
             <Button>Click me</Button>
         </SectionScreen>
@@ -104,10 +110,12 @@ import { MapContainer } from "../components/presentation/MapContainer";
         <SectionScreen
             title="Card componnet"
             description="Experimentation fo toast component with different animation styles. This is mostly created with vanilla CSS and javascript"
-            code={`<Toast
-    title="Toast component"
-    description="Basic experimentation of working with toast components
-    />`}
+            code={`
+            <Toast
+              title="Toast component"
+              description="Toast message"
+            />
+      `}
         >
             <ToastComponent />
         </SectionScreen>
@@ -115,14 +123,20 @@ import { MapContainer } from "../components/presentation/MapContainer";
         <SectionScreen
             title="Card inverted"
             description={`Animation for bank companies. Trying to recreate a leather texture on the card`}
-            code={`<Card title="Card inverted" description="Basic css inverted example" />`}
+            code={`
+        <Card
+          cardNumber="3782 8224 6310 004"
+          cardHolder="xxxx"
+          cardBrand="AMEX"
+        />
+        `}
         >
             <CardHover>
                 <div class="positioning-context">
                     <div class="parent card-black">
                         <div class="card-chip"></div>
                         <div class="card-number">3782 8224 6310 004</div>
-                        <div class="card-holder">Asta UI</div>
+                        <div class="card-holder">xxxx</div>
                         <div class="card-brand">AMEX</div>
                     </div>
                 </div>
@@ -133,12 +147,11 @@ import { MapContainer } from "../components/presentation/MapContainer";
             description={`This was just made bacause i like the colors from jojo part 9.
     Learned show to use clip-path and mix-blend-mode. Love the future for fast image transformation`}
             code={`
-            <JoJoLand
-                image="https://www.pngkey.com/maxpic/u2q8a9i1q8r5o0u2/"
-                client:only="react"
-            >
-                <JojoItems client:only="react" />
-            </JoJoLand>
+        <JoJoLand
+            image="https://www.pngkey.com/maxpic/u2q8a9i1q8r5o0u2/"
+        >
+            <JojoItems />
+        </JoJoLand>
           `}
         >
             <div class="relative">

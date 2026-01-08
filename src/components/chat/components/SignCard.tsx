@@ -253,7 +253,7 @@ export const SignCard = () => {
             damping: 65,
             mass: 2,
           }}
-          className={`${signatureDataURL ? "bg-gray-100 cursor-not-allowed py-1 px-2" : "bg-[#221911] py-2 px-4"} text-white font-bold rounded-2xl z-1`}
+          className={`${signatureDataURL ? "bg-gray-100 cursor-not-allowed py-1 px-2" : "bg-[#221911] py-2 px-4"} text-white font-bold  cursor-pointer rounded-2xl z-1`}
           onClick={() => {
             if (!signatureDataURL) {
               setIsOpend(!isOpend);
@@ -268,7 +268,7 @@ export const SignCard = () => {
               alt="Signature"
             />
           ) : (
-            <motion.span className="!text-white">Sign Document</motion.span>
+            <motion.span className="!text-white  ">Sign Document</motion.span>
           )}
         </motion.button>
         <AnimatePresence mode="popLayout" initial={false}>
@@ -287,7 +287,7 @@ export const SignCard = () => {
                 <motion.canvas
                   id="drawingCanvas"
                   ref={canvasRef}
-                  className="absolute top-0 left-0 w-full h-full"
+                  className="absolute top-0 left-0 w-full h-full z-10"
                   onMouseDown={startDrawing}
                   onMouseMove={draw}
                   onMouseUp={stopDrawing}
@@ -303,7 +303,7 @@ export const SignCard = () => {
                 whileInView="visible"
                 exit="hidden"
                 onClick={clearCanvas}
-                className="absolute top-2 left-3 z-10 rounded-4xl bg-gray-100 px-1 py-1"
+                className="absolute top-2 left-3 z-20 rounded-4xl bg-gray-100 px-1 py-1 cursor-pointer "
               >
                 <motion.svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -329,7 +329,7 @@ export const SignCard = () => {
                   clearCanvas();
                   setIsOpend(!isOpend);
                 }}
-                className="absolute top-2 right-3 z-10 rounded-4xl bg-gray-100 px-1 py-1"
+                className="cursor-pointer absolute top-2 right-3 z-20 rounded-4xl bg-gray-100 px-1 py-1"
               >
                 <motion.svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -346,7 +346,7 @@ export const SignCard = () => {
                   <line x1="6" y1="6" x2="18" y2="18"></line>
                 </motion.svg>
               </motion.button>
-              <div className="absolute left-0 bottom-0 flex justify-center w-full z-10 py-2">
+              <div className="absolute left-0 bottom-0 flex justify-center w-full z-20 py-2">
                 <motion.button
                   animate={{ scale: 1.1 }}
                   onClick={() => {
@@ -354,7 +354,7 @@ export const SignCard = () => {
                     clearCanvas();
                     setIsOpend(!isOpend);
                   }}
-                  className={`z-20 bg-gray-100 px-3 py-2 !font-bold rounded-2xl`}
+                  className={`cursor-pointer z-20 bg-gray-100 px-3 py-2 !font-bold rounded-2xl`}
                   layoutId="card-button"
                 >
                   Finish signing
